@@ -1,20 +1,27 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Register{% endblock %}
+{% block title %}S'inscrire | BissoNico{% endblock %}
 
 {% block body %}
     {% for flashError in app.flashes('verify_email_error') %}
         <div class="alert alert-danger" role="alert">{{ flashError }}</div>
     {% endfor %}
+    {% if app.user %}
+        <div class="mb-3 text-center">
+            Vous êtes déjà connecté en tant que <b>{{ app.user.pseudo }}</b>. <br>
+            <a href="{{ path('app_logout') }}" class="btn btn-danger my-2">Se déconnecter</a>
+        </div>
+    {% else %}
+        <h1 class="h3 mb-3 font-weight-normal mb-2 text-center">Créer son compte</h1>
 
-    <h1>Register</h1>
-
-    {{ form_start(registrationForm) }}
-        {{ form_row(registrationForm.email) }}
-        {{ form_row(registrationForm.pseudo) }}
-        {{ form_row(registrationForm.password) }}
-        {{ form_row(registrationForm.agreeTerms) }}
-
-        <button type="submit" class="btn">Register</button>
-    {{ form_end(registrationForm) }}
+        {{ form_start(registrationForm) }}
+            {{ form_row(registrationForm.email) }}
+            {{ form_row(registrationForm.pseudo) }}
+            {{ form_row(registrationForm.password) }}
+            {{ form_row(registrationForm.agreeTerms) }}
+            <div class="text-center my-2">
+                <button type="submit" class="btn btn-primary">S'inscrire</button>
+            </div>
+        {{ form_end(registrationForm) }}
+    {% endif %}
 {% endblock %}
