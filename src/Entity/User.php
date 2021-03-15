@@ -47,7 +47,7 @@ class User implements UserInterface
     private $pseudo;
 
     /**
-     * @ORM\Column(type="boolean")
+     * @ORM\Column(type="boolean", options={"default": false})
      */
     private $isVIP;
 
