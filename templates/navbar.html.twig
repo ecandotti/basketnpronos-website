@@ -10,18 +10,25 @@
             <a class="nav-link" href="{{ path('home') }}">Accueil</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="#notice">Avis</a>
+            <a class="nav-link" href="{{ path('notice') }}">Avis</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="#gallery">Gallerie</a>
+            <a class="nav-link" href="{{ path('gallery') }}">Gallerie</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="{{ path('history') }}">Historique</a>
         </li>
         {% if app.user and app.user.isVIP %}
             <li class="nav-item">
-                <a class="nav-link text-warning" href="{{ path('user_dashboard') }}">Pronostique</a>
+                <a class="nav-link text-warning" href="{{ path('user_dashboard') }}">
+                    <i class="fas fa-star"></i> Pronostique <i class="fas fa-star"></i>
+                </a>
             </li>
         {% else %}    
             <li class="nav-item">
-                <a class="nav-link text-success" href="#joinUs">Nous rejoindre</a>
+                <a class="nav-link text-success" href="{{ path('join_us') }}">
+                    <i class="fas fa-user-friends"></i> Nous rejoindre
+                </a>
             </li>
         {% endif %}
     </ul>

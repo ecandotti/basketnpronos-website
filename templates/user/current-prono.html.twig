@@ -1,0 +1,16 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Pronostique du jour | Bissonico{% endblock %}
+
+{% block body %}
+    <h3 class="text-center my-2 text-warning"><i class="fas fa-star"></i> Pronostique du jour</h3>
+
+    <section>
+        <div class="d-flex flex-column">
+        {% if not currentProno %}
+            <div class="text-center my-4 border p-4 text-muted">
+                Le pronostique du jour n'est pas encore sortie !
+            </div>
+        {% endif %}
+    </section>
+{% endblock %}

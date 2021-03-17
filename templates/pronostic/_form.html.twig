@@ -1,0 +1,9 @@
+{{ form_start(form) }}
+    {{ form_row(form.teamA) }}
+    {{ form_row(form.teamB) }}
+    {{ form_row(form.winner) }}
+    <div class="d-flex my-4">
+    {{ form_row(form.valider) }}
+    <a href="{{ path('pronostic_index') }}" class="btn btn-danger mr-2">Annuler</a>
+    </div>
+{{ form_end(form) }}

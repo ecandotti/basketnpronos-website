@@ -17,26 +17,34 @@ class MainController extends AbstractController
     }
 
     /**
-     * @Route("/", name="notice")
+     * @Route("/notice", name="notice")
      */
     public function notice(): Response
     {
-        return $this->render('base.html.twig');
+        return $this->render('notice.html.twig');
     }
 
     /**
-     * @Route("/", name="join_us")
+     * @Route("/joinUs", name="join_us")
      */
     public function joinUs(): Response
     {
-        return $this->render('base.html.twig');
+        return $this->render('join-us.html.twig');
     }
 
     /**
-     * @Route("/", name="gallery")
+     * @Route("/gallery", name="gallery")
      */
     public function gallery(): Response
     {
-        return $this->render('base.html.twig');
+        return $this->render('gallery.html.twig');
+    }
+
+    /**
+     * @Route("/history", name="history")
+     */
+    public function history(): Response
+    {
+        return $this->render('history.html.twig');
     }
 }

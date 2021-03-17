@@ -1,0 +1,18 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Tableau de bord{% endblock %}
+
+{% block body %}
+    {% include "admin/_menu.html.twig" %}
+    <section>
+        <div class="my-3">
+            <h2>Vos 5 derniers pronostiques :</h2>
+        </div>
+        <div class="d-flex flex-column">
+        {% if not latest_pronostic %}
+            <div class="text-center my-4 border p-4 text-muted">
+                Vous semblez ne pas avoir de pronostique
+            </div>
+        {% endif %}
+    </section>
+{% endblock %}
