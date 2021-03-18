@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\PronosticRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -51,6 +53,16 @@ class Pronostic
      * @ORM\Column(type="datetime")
      */
     private $createDate;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Comment::class, mappedBy="pronostic")
+     */
+    private $comments;
+
+    public function __construct()
+    {
+        $this->comments = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -137,6 +149,36 @@ class Pronostic
     public function setCreateDate(\DateTimeInterface $createDate): self
     {
         $this->createDate = $createDate;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Comment[]
+     */
+    public function getComments(): Collection
+    {
+        return $this->comments;
+    }
+
+    public function addComment(Comment $comment): self
+    {
+        if (!$this->comments->contains($comment)) {
+            $this->comments[] = $comment;
+            $comment->setPronostic($this);
+        }
+
+        return $this;
+    }
+
+    public function removeComment(Comment $comment): self
+    {
+        if ($this->comments->removeElement($comment)) {
+            // set the owning side to null (unless already changed)
+            if ($comment->getPronostic() === $this) {
+                $comment->setPronostic(null);
+            }
+        }
 
         return $this;
     }

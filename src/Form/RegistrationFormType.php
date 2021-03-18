@@ -21,26 +21,20 @@ class RegistrationFormType extends AbstractType
             ->add('email', EmailType::class, [
                 'required' => true,
                 'label' => 'Email',
+                'attr' => ['class' => 'form-control my-2']
             ])
             ->add('pseudo', TextType::class, [
                 'required' => true,
                 'label' => 'Pseudo',
+                'attr' => ['class' => 'form-control my-2']
             ])
             ->add('password', RepeatedType::class, [
                 'type' => PasswordType::class,
                 'invalid_message' => 'Les mots de passes doivent correspondre.',
                 'options' => ['attr' => ['class' => 'password-field']],
                 'required' => true,
-                'first_options'  => ['label' => 'Mot de passe'],
-                'second_options' => ['label' => 'Confirmer votre mot de passe'],
-            ])
-            ->add('agreeTerms', CheckboxType::class, [
-                'mapped' => false,
-                'constraints' => [
-                    new IsTrue([
-                        'message' => 'Vous devez accepter nos conditions.',
-                    ]),
-                ],
+                'first_options'  => ['label' => 'Mot de passe', 'attr' => ['class' => 'form-control my-2']],
+                'second_options' => ['label' => 'Confirmer votre mot de passe', 'attr' => ['class' => 'form-control my-2']],
             ])
         ;
     }

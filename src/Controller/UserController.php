@@ -10,12 +10,12 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
- * @Route("/user")
+ * @Route("/VIP")
  */
 class UserController extends AbstractController
 {
     /**
-     * @Route("/dashboard", name="user_dashboard")
+     * @Route("/currentPronostic", name="currentPronostic")
      */
     public function index(EntityManagerInterface $em): Response
     {

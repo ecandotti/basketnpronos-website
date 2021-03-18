@@ -3,5 +3,76 @@
 {% block title %}Nous rejoindre | Bissonico{% endblock %}
 
 {% block body %}
-    <h2 class="text-center my-4">Nous rejoindre</h2>
+    {% if app.user and is_granted('ROLE_USER') %}
+        <h2 class="text-center my-4">Devenir V.I.P</h2>
+    {% else %}
+        <h2 class="text-center my-4">Nous rejoindre</h2>
+    {% endif %}
+
+
+    <div class="card-deck mb-5 text-center">
+        <div class="card-body">
+            <div class="card-header">
+                <h4 class="my-0 font-weight-normal">3 Mois</h4>
+            </div>
+            <h1 class="card-title pricing-card-title mt-3">6.66€ <small class="text-muted">/ mois</small></h1>
+            <h5 class="card-title pricing-card-title"><small class="text-muted">Pour un total de 20€</small></h5>
+            <div class="d-flex flex-column mt-3 mb-4">
+                <h6 class="my-3">Accès aux pronostiques</h6>
+                <h6 class="mb-3">Gestion de <span class="text-success">Bankroll</span></h6>
+                <h6 class="mb-3"><span class="text-danger">Montante</span></h6>
+                <h6 class="mb-3">Reduction de <span class="text-info">-10€</span></h6>
+            </div>
+            {% if app.user and is_granted('ROLE_USER') %}
+            <a href="{{ path('home') }}" class="btn btn-lg btn-block btn-primary">
+                <span class="text-center my-4">Rejoindre le <span class="text-warning">groupe</span></span>
+            {% else %}
+             <a href="{{ path('app_register') }}" class="btn btn-lg btn-block btn-primary">
+                Devenir <span class="text-warning">V.I.P</span>
+            {% endif %}
+            </a>
+        </div>
+        <div class="card-body">
+            <div class="card-header">
+                <h4 class="my-0 font-weight-normal">1 Mois</h4>
+            </div>
+            <h1 class="card-title pricing-card-title mt-3">9€ <small class="text-muted">/ mois</small></h1>
+            <h5 class="card-title pricing-card-title"><small class="text-muted">&nbsp;</small></h5>
+            <div class="d-flex flex-column mt-3 mb-4">
+                <h6 class="my-3">Accès aux pronostiques</h6>
+                <h6 class="mb-3">Gestion de <span class="text-success">Bankroll</span></h6>
+                <h6 class="mb-3"><span class="text-danger">Montante</span></h6>
+                <h6 class="mb-3">....</h6>
+            </div>
+            {% if app.user and is_granted('ROLE_USER') %}
+            <a href="{{ path('home') }}" class="btn btn-lg btn-block btn-primary">
+                <span class="text-center my-4">Rejoindre le <span class="text-warning">groupe</span></span>
+            {% else %}
+             <a href="{{ path('app_register') }}" class="btn btn-lg btn-block btn-primary">
+                Devenir <span class="text-warning">V.I.P</span>
+            {% endif %}
+            </a>
+        </div>
+        <div class="card-body">
+            <div class="card-header">
+                <h4 class="my-0 font-weight-normal">1 An</h4>
+            </div>
+            <h1 class="card-title pricing-card-title mt-3">7.5€ <small class="text-muted">/ mois</small></h1>
+            <h5 class="card-title pricing-card-title"><small class="text-muted">Pour un total de 90€</small></h5>
+            <div class="d-flex flex-column mt-3 mb-4">
+                <h6 class="my-3">Accès aux pronostiques</h6>
+                <h6 class="mb-3">Gestion de <span class="text-success">Bankroll</span></h6>
+                <h6 class="mb-3"><span class="text-danger">Montante</span></h6>
+                <h6 class="mb-3">Reduction de <span class="text-info">-30€</span></h6>
+            </div>
+            {% if app.user and is_granted('ROLE_USER') %}
+            <a href="{{ path('home') }}" class="btn btn-lg btn-block btn-primary">
+                <span class="text-center my-4">Rejoindre le <span class="text-warning">groupe</span></span>
+            {% else %}
+             <a href="{{ path('app_register') }}" class="btn btn-lg btn-block btn-primary">
+                Devenir <span class="text-warning">V.I.P</span>
+            {% endif %}
+            </a>
+        </div>
+    </div>
 {% endblock %}

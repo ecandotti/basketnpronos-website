@@ -67,6 +67,7 @@ class RegistrationController extends AbstractController
             );
         }
 
+        $this->addFlash('msg', 'Vous devez d\'abord créer un compte, pour pouvoir être V.I.P');
         return $this->render('registration/register.html.twig', [
             'registrationForm' => $form->createView(),
         ]);

@@ -4,4 +4,35 @@
 
 {% block body %}
     <h2 class="text-center my-4">Avis</h2>
+
+    <div class="my-4">
+        <h3>Laissez un commentaire :</h3>
+        {% if app.user.isVIP %}
+            <div>
+                {{ form(form) }}
+            </div>
+        {% else %}
+            <div>
+                Vous devez être <span class="text-warning">VIP</span> pour pouvoir laisser un commentaire.<br>
+                <div class="d-flex my-2">
+                    <a class="btn btn-secondary mb-2 mr-2" href="{{ path("join_us") }}">Nous rejoindre</a>
+                </div>
+            </div>
+        {% endif %}
+    </div>
+    {% if comments %}
+        {% for comment in comments %}
+            <div class="list-group-item flex-column align-items-start" id="comment-zone">
+                <div class="d-flex w-100 justify-content-between">
+                    <h6 class="mb-1">{{ comment.user.pseudo }}</h6>
+                    <span class="text-muted">{{ comment.createAt|date }}</span>
+                </div>
+                <div class="mb-1 text-secondary">{{ comment.content }}</div>
+            </div>
+        {% endfor %}
+    {% else %}
+        <div class="text-center my-4 border p-4 text-muted">
+            Aucun commentaire
+        </div>
+    {% endif %}
 {% endblock %}

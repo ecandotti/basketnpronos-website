@@ -2,7 +2,11 @@
 
 namespace App\Controller;
 
+use App\Entity\Comment;
 use App\Entity\Pronostic;
+use App\Form\CommentType;
+use DateTime;
+use Doctrine\ORM\EntityManagerInterface;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -22,9 +26,42 @@ class MainController extends AbstractController
     /**
      * @Route("/notice", name="notice")
      */
-    public function notice(): Response
+    public function notice(Request $request, EntityManagerInterface $em, PaginatorInterface $paginator): Response
     {
-        return $this->render('notice.html.twig');
+        $comment = new Comment();
+        $form = $this->createForm(CommentType::class, $comment);
+        $form->handleRequest($request);
+
+        $comments = $em->getRepository(Comment::class)->findBy([],[
+            'createAt' => 'DESC'
+        ]);
+        
+        $comments = $paginator->paginate(
+            $comments, // Requête contenant les données à paginer
+            $request->query->getInt('page', 1), // Numéro de la page en cours, passé dans l'URL, 1 si aucune page
+            10 // Nombre de résultats par page
+        );
+            
+        if ($form->isSubmitted() && $form->isValid()) {
+            $comment->setStatus('W');
+            $comment->setUser($this->getUser());
+            $comment->setCreateAt(new DateTime('now'));
+
+            $doctrine = $this->getDoctrine()->getManager();
+            $doctrine->persist($comment);
+            $doctrine->flush();
+
+            $this->addFlash('success', 'Commentaire posté avec succès. Cependant le commentaire doit être approuvé par l’administrateur pour être visible');
+            return $this->render('notice.html.twig', [
+                'form' => $form->createView(),
+                'comments' => $comments
+            ]);
+        }
+
+        return $this->render('notice.html.twig', [
+            'form' => $form->createView(),
+            'comments' => $comments
+        ]);
     }
 
     /**

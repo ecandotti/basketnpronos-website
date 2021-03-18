@@ -1,5 +1,5 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
-  <a class="navbar-brand" href="{{ path('home') }}">BissoNico</a>
+  <a class="navbar-brand" href="{{ path('home') }}">Bisso<span class="text-warning">Nico</span></a>
   <button class="navbar-toggler collapsed" type="button" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
@@ -10,21 +10,29 @@
             <a class="nav-link" href="{{ path('home') }}">Accueil</a>
         </li>
         <li class="nav-item">
+            <a class="nav-link" href="{{ path('history') }}">Historique</a>
+        </li>
+        <li class="nav-item">
             <a class="nav-link" href="{{ path('notice') }}">Avis</a>
         </li>
         <li class="nav-item">
             <a class="nav-link" href="{{ path('gallery') }}">Gallerie</a>
         </li>
-        <li class="nav-item">
-            <a class="nav-link" href="{{ path('history') }}">Historique</a>
-        </li>
-        {% if app.user and app.user.isVIP %}
+        {% if app.user.isVIP %}
             <li class="nav-item">
-                <a class="nav-link text-warning" href="{{ path('user_dashboard') }}">
+                <a class="nav-link text-warning" href="{{ path('currentPronostic') }}">
                     <i class="fas fa-star"></i> Pronostique <i class="fas fa-star"></i>
                 </a>
             </li>
-        {% else %}    
+        {% endif %}
+        {% if app.user and is_granted('ROLE_USER') and not is_granted('ROLE_ADMIN') %}
+            <li class="nav-item">
+                <a class="nav-link text-warning" href="{{ path('join_us') }}">
+                    <i class="fas fa-medal"></i> Devenir V.I.P
+                </a>
+            </li>
+        {% endif %}
+        {% if not app.user %}    
             <li class="nav-item">
                 <a class="nav-link text-success" href="{{ path('join_us') }}">
                     <i class="fas fa-user-friends"></i> Nous rejoindre

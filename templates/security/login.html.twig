@@ -14,6 +14,7 @@
             <a href="{{ path('app_logout') }}" class="btn btn-danger my-2">Se déconnecter</a>
         </div>
     {% else %}
+    <div class="mb-5">
         <h1 class="h3 mb-3 font-weight-normal mb-2 text-center">Connexion</h1>
         <div class="my-2">
             <label for="inputEmail">Email</label>
@@ -29,6 +30,7 @@
                 Connexion
             </button>
         </div>
+    </div>
     {% endif %}
 </form>
 {% endblock %}
