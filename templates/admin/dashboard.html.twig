@@ -1,14 +1,67 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Tableau de bord{% endblock %}
+{% block title %}Tableau de bord | BissoNico{% endblock %}
 
 {% block body %}
-    {% include "admin/_menu.html.twig" %}
-    <section>
-        <div class="my-3">
-            <h2>Vos 5 derniers pronostiques :</h2>
+    {% for messages in app.flashes('success') %}
+        <div class="alert alert-dismissible alert-success">
+            <button type="button" class="close" data-dismiss="alert" tabindex="0">&times;</button>
+            {{ messages }}
         </div>
+    {% endfor %}
+    {% for messages in app.flashes('err') %}
+        <div class="alert alert-dismissible alert-danger">
+            <button type="button" class="close" data-dismiss="alert" tabindex="0">&times;</button>
+            {{ messages }}
+        </div>
+    {% endfor %}
+
+    <h2 class="text-center mb-4">Tableau de bord</h2>
+    
+    {% include "admin/_menu.html.twig" %}
+
+    <section>
         <div class="d-flex flex-column">
+        {% for prono in latest_pronostic %}
+            <div class="flex-grow-1 card border-secondary mb-2 mr-2">
+                <div class="card-header">{{ prono.title }}</div>
+                <div class="card-body">
+                    <h6 class="mt-1">
+                        Autheur :
+                        <span class="mb-1 text-secondary">{{ prono.user.pseudo}}</span>
+                    </h6>
+                    <h6 class="mt-1">
+                        Date :
+                        <span class="mb-1 text-secondary">{{ prono.createAt }}</span>
+                    </h6>
+                    <h6 class="mt-1">
+                        Catégorie :
+                        <span class="mb-1 text-secondary">
+                            {% if prono.category.name == "Fiable" %}
+                                <span class="badge badge-success">{{ prono.category.name}}</span>
+                            {% endif %}
+                            {% if prono.category.name == "Fun" %}
+                                <span class="badge badge-info">{{ prono.category.name}}</span>
+                            {% endif %}
+                        </span>
+                    </h6>
+                    <h6 class="mt-1">
+                        Resultat :
+                        <span class="mb-1 text-secondary">
+                            {% if prono.result.name == "ND" %}
+                                <span class="badge badge-warning">Non définie</span>
+                            {% endif %}
+                            {% if prono.result.name == "G" %}
+                                <span class="badge badge-success">Gagné</span>
+                            {% endif %}
+                            {% if prono.result.name == "P" %}
+                                <span class="badge badge-danger">Perdu</span>
+                            {% endif %}
+                        </span>
+                    </h6>
+                </div>
+            </div>
+        {% endfor %}
         {% if not latest_pronostic %}
             <div class="text-center my-4 border p-4 text-muted">
                 Vous semblez ne pas avoir de pronostique

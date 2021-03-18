@@ -5,6 +5,8 @@ namespace App\Controller;
 use App\Entity\Pronostic;
 use App\Form\PronosticType;
 use App\Repository\PronosticRepository;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+use DateTime;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -26,6 +28,7 @@ class PronosticController extends AbstractController
     }
 
     /**
+     * @IsGranted("ROLE_ADMIN")
      * @Route("/new", name="pronostic_new", methods={"GET","POST"})
      */
     public function new(Request $request): Response
@@ -35,11 +38,20 @@ class PronosticController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            if($form->get('content')->getData() == null) {
+                $this->addFlash('err', 'Le contenu est vide, le pronostique n\'a pas été créé');
+                return $this->redirectToRoute('admin_dashboard');
+            }
+            $date = new DateTime();
+
+            $pronostic->setCreateAt($date->format('d-m-Y'));
+            $pronostic->setCreateDate($date);
+            $pronostic->setUser($this->getUser());
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($pronostic);
             $entityManager->flush();
 
-            return $this->redirectToRoute('pronostic_index');
+            return $this->redirectToRoute('admin_dashboard');
         }
 
         return $this->render('pronostic/new.html.twig', [
@@ -49,16 +61,7 @@ class PronosticController extends AbstractController
     }
 
     /**
-     * @Route("/{id}", name="pronostic_show", methods={"GET"})
-     */
-    public function show(Pronostic $pronostic): Response
-    {
-        return $this->render('pronostic/show.html.twig', [
-            'pronostic' => $pronostic,
-        ]);
-    }
-
-    /**
+     * @IsGranted("ROLE_ADMIN")
      * @Route("/{id}/edit", name="pronostic_edit", methods={"GET","POST"})
      */
     public function edit(Request $request, Pronostic $pronostic): Response
@@ -69,7 +72,8 @@ class PronosticController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $this->getDoctrine()->getManager()->flush();
 
-            return $this->redirectToRoute('pronostic_index');
+            $this->addFlash('success', 'Pronostique édité avec succès !');
+            return $this->redirectToRoute('admin_dashboard');
         }
 
         return $this->render('pronostic/edit.html.twig', [
@@ -79,6 +83,7 @@ class PronosticController extends AbstractController
     }
 
     /**
+     * @IsGranted("ROLE_ADMIN")
      * @Route("/{id}", name="pronostic_delete", methods={"DELETE"})
      */
     public function delete(Request $request, Pronostic $pronostic): Response

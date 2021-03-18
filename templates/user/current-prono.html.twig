@@ -3,10 +3,31 @@
 {% block title %}Pronostique du jour | Bissonico{% endblock %}
 
 {% block body %}
-    <h3 class="text-center my-2 text-warning"><i class="fas fa-star"></i> Pronostique du jour</h3>
+    <h3 class="text-center my-2 text-warning "><i class="fas fa-star"></i> Pronostique du jour <i class="fas fa-star"></i></h3>
 
     <section>
         <div class="d-flex flex-column">
+        {% for prono in currentProno %}
+            <div class="card my-4">
+                <div class="card-body">
+                    <h2 class="card-title text-center"><u>{{ prono.title }}</u></h2>
+                </div>
+
+                <div class="card-body">
+                    {{ prono.content|raw }}
+                </div>
+                <ul class="list-group list-group-flush">
+                    {% if prono.category.name == "Fiable" %}
+                        <span class="badge badge-success">{{ prono.category.name }}</span>
+                    {% else %}
+                        <span class="badge badge-info">{{ prono.category.name }}</span>
+                    {% endif %}
+                </ul>
+                <div class="card-footer text-muted">
+                    Le {{ prono.createAt|date('d-m-Y') }} par <b>{{ prono.user.pseudo}}</b>.
+                </div>
+            </div>
+        {% endfor %}
         {% if not currentProno %}
             <div class="text-center my-4 border p-4 text-muted">
                 Le pronostique du jour n'est pas encore sortie !

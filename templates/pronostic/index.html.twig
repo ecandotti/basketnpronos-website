@@ -9,9 +9,7 @@
         <thead>
             <tr>
                 <th>Id</th>
-                <th>TeamA</th>
-                <th>TeamB</th>
-                <th>Winner</th>
+                <th>Titre</th>
                 <th>CreateAt</th>
                 <th>actions</th>
             </tr>
@@ -20,9 +18,7 @@
         {% for pronostic in pronostics %}
             <tr>
                 <td>{{ pronostic.id }}</td>
-                <td>{{ pronostic.teamA }}</td>
-                <td>{{ pronostic.teamB }}</td>
-                <td>{{ pronostic.winner }}</td>
+                <td>{{ pronostic.title }}</td>
                 <td>{{ pronostic.createAt ? pronostic.createAt|date('Y-m-d H:i:s') : '' }}</td>
                 <td>
                     <a href="{{ path('pronostic_show', {'id': pronostic.id}) }}">show</a>

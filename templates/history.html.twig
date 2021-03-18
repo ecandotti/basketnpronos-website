@@ -3,5 +3,38 @@
 {% block title %}Historique | Bissonico{% endblock %}
 
 {% block body %}
-    <h3 class="text-center my-2">Historique</h3>
+    <h2 class="text-center my-4">Historique</h2>
+    {% for pronostique in pronostiques %}
+        <div class="card mb-3">
+            <div class="card-body">
+                <h2 class="card-title">{{ pronostique.title }}</h2>
+                {{ pronostique.content|raw }}
+            </div>
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item">Catégorie : <span class="badge badge-info">{{ pronostique.category.name }}</span></li>
+                <li class="list-group-item">
+                    Resultat : 
+                    <span class="mb-1 text-secondary">
+                        {% if pronostique.result.name == "ND" %}
+                            <span class="badge badge-warning">Non définie</span>
+                        {% endif %}
+                        {% if pronostique.result.name == "G" %}
+                            <span class="badge badge-success">Gagné</span>
+                        {% endif %}
+                        {% if pronostique.result.name == "P" %}
+                            <span class="badge badge-danger">Perdu</span>
+                        {% endif %}
+                    </span>
+                </li>
+            </ul>
+            <div class="card-footer text-muted">
+                Le {{ pronostique.createAt }} par <b>{{ pronostique.user.pseudo}}</b>.
+            </div>
+        </div>
+    {% else %}
+        <h6>Aucun pronostiques disponible :(</h6>
+    {% endfor %}
+    <div class="text-center d-flex justify-content-center">
+        {{ knp_pagination_render(pronostiques) }}
+    </div>
 {% endblock %}

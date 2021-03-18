@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\UserRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -50,6 +52,16 @@ class User implements UserInterface
      * @ORM\Column(type="boolean", options={"default": false})
      */
     private $isVIP;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Pronostic::class, mappedBy="pseudo")
+     */
+    private $pronostics;
+
+    public function __construct()
+    {
+        $this->pronostics = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -164,6 +176,36 @@ class User implements UserInterface
     public function setIsVIP(bool $isVIP): self
     {
         $this->isVIP = $isVIP;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Pronostic[]
+     */
+    public function getPronostics(): Collection
+    {
+        return $this->pronostics;
+    }
+
+    public function addPronostic(Pronostic $pronostic): self
+    {
+        if (!$this->pronostics->contains($pronostic)) {
+            $this->pronostics[] = $pronostic;
+            $pronostic->setPseudo($this);
+        }
+
+        return $this;
+    }
+
+    public function removePronostic(Pronostic $pronostic): self
+    {
+        if ($this->pronostics->removeElement($pronostic)) {
+            // set the owning side to null (unless already changed)
+            if ($pronostic->getPseudo() === $this) {
+                $pronostic->setPseudo(null);
+            }
+        }
 
         return $this;
     }

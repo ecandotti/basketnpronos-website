@@ -12,20 +12,20 @@
                 <td>{{ pronostic.id }}</td>
             </tr>
             <tr>
-                <th>TeamA</th>
-                <td>{{ pronostic.teamA }}</td>
+                <th>Titre</th>
+                <td>{{ pronostic.title }}</td>
             </tr>
             <tr>
-                <th>TeamB</th>
-                <td>{{ pronostic.teamB }}</td>
+                <th>Catégorie</th>
+                <td>{{ pronostic.category.name }}</td>
             </tr>
             <tr>
-                <th>Winner</th>
-                <td>{{ pronostic.winner }}</td>
+                <th>Contenu</th>
+                <td>{{ pronostic.content }}</td>
             </tr>
             <tr>
                 <th>CreateAt</th>
-                <td>{{ pronostic.createAt ? pronostic.createAt|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ pronostic.createAt }}</td>
             </tr>
         </tbody>
     </table>

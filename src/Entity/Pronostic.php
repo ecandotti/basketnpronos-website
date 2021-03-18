@@ -20,89 +20,123 @@ class Pronostic
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $teamA;
+    private $createAt;
+
+    /**
+     * @ORM\Column(type="text")
+     */
+    private $content;
 
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $teamB;
+    private $title;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="pronostics")
      */
-    private $winner;
+    private $user;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Category::class, inversedBy="pronostics")
+     */
+    private $category;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Result::class, inversedBy="pronostics")
+     */
+    private $result;
 
     /**
      * @ORM\Column(type="datetime")
      */
-    private $createAt;
-
-    /**
-     * @ORM\Column(type="boolean")
-     */
-    private $pronoType;
+    private $createDate;
 
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getTeamA(): ?string
-    {
-        return $this->teamA;
-    }
-
-    public function setTeamA(string $teamA): self
-    {
-        $this->teamA = $teamA;
-
-        return $this;
-    }
-
-    public function getTeamB(): ?string
-    {
-        return $this->teamB;
-    }
-
-    public function setTeamB(string $teamB): self
-    {
-        $this->teamB = $teamB;
-
-        return $this;
-    }
-
-    public function getWinner(): ?string
-    {
-        return $this->winner;
-    }
-
-    public function setWinner(string $winner): self
-    {
-        $this->winner = $winner;
-
-        return $this;
-    }
-
-    public function getCreateAt(): ?\DateTimeInterface
+    public function getCreateAt(): ?string
     {
         return $this->createAt;
     }
 
-    public function setCreateAt(\DateTimeInterface $createAt): self
+    public function setCreateAt(string $createAt): self
     {
         $this->createAt = $createAt;
 
         return $this;
     }
 
-    public function getPronoType(): ?bool
+    public function getContent(): ?string
     {
-        return $this->pronoType;
+        return $this->content;
     }
 
-    public function setPronoType(bool $pronoType): self
+    public function setContent(string $content): self
     {
-        $this->pronoType = $pronoType;
+        $this->content = $content;
+
+        return $this;
+    }
+
+    public function getTitle(): ?string
+    {
+        return $this->title;
+    }
+
+    public function setTitle(string $title): self
+    {
+        $this->title = $title;
+
+        return $this;
+    }
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(?User $user): self
+    {
+        $this->user = $user;
+
+        return $this;
+    }
+
+    public function getCategory(): ?Category
+    {
+        return $this->category;
+    }
+
+    public function setCategory(?Category $category): self
+    {
+        $this->category = $category;
+
+        return $this;
+    }
+
+    public function getResult(): ?Result
+    {
+        return $this->result;
+    }
+
+    public function setResult(?Result $result): self
+    {
+        $this->result = $result;
+
+        return $this;
+    }
+
+    public function getCreateDate(): ?\DateTimeInterface
+    {
+        return $this->createDate;
+    }
+
+    public function setCreateDate(\DateTimeInterface $createDate): self
+    {
+        $this->createDate = $createDate;
 
         return $this;
     }

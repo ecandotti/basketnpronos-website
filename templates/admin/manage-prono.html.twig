@@ -1,0 +1,57 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Pronostique Manager | BissoNico{% endblock %}
+
+{% block body %}
+    <h2 class="text-center mb-4">Gérer mes pronostiques</h2>
+
+    {% include "admin/_menu.html.twig" %}
+
+    {% if pronostiques is not empty %}
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th scope="col">Titre</th>
+                    <th scope="col">Catégorie</th>
+                    <th scope="col">Resultat</th>
+                    <th scope="col">Date</th>
+                    <th scope="col">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for pronostic in pronostiques %}
+                    <tr>
+                        <th scope="row">{{ pronostic.title }}</th>
+                        <th scope="row"><u>{{ pronostic.category.name }}</u></th>
+                        <td>
+                            {% if pronostic.result.name == "ND" %}
+                                <span class="badge badge-warning">Non définie</span>
+                            {% endif %}
+                            {% if pronostic.result.name == "G" %}
+                                <span class="badge badge-success">Gagné</span>
+                            {% endif %}
+                            {% if pronostic.result.name == "P" %}
+                                <span class="badge badge-danger">Perdu</span>
+                            {% endif %}
+                        </td>
+                        <th scope="row">{{ pronostic.createAt }}</th>
+                        <td>
+                            <div class="d-flex flex-column flex-md-row">
+                                <a href="{{ path('pronostic_edit', {'id': pronostic.id}) }}" class="btn btn-warning mr-2 mb-2">
+                                    <i class="fas fa-edit"></i>
+                                </a>
+                            </div>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <div class="text-center d-flex justify-content-center">
+            {{ knp_pagination_render(pronostiques) }}
+        </div>
+    {% else %}
+        <div class="text-center my-4 border p-4 text-muted">
+            Aucun pronostique à gérer
+        </div>
+    {% endif %}
+{% endblock %}

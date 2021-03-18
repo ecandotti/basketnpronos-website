@@ -2,7 +2,10 @@
 
 namespace App\Controller;
 
+use App\Entity\Pronostic;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -43,8 +46,20 @@ class MainController extends AbstractController
     /**
      * @Route("/history", name="history")
      */
-    public function history(): Response
+    public function history(Request $request, PaginatorInterface $paginator): Response
     {
-        return $this->render('history.html.twig');
+        $pronostiques = $this->getDoctrine()->getRepository(Pronostic::class)->findBy([],[
+            'createDate' => 'DESC'
+        ]);
+
+        $pronostiques = $paginator->paginate(
+            $pronostiques, // Requête contenant les données à paginer
+            $request->query->getInt('page', 1), // Numéro de la page en cours, passé dans l'URL, 1 si aucune page
+            10 // Nombre de résultats par page
+        );
+
+        return $this->render('history.html.twig', [
+            'pronostiques' => $pronostiques
+        ]);
     }
 }
