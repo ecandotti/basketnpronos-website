@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Pronostique Manager | BissoNico{% endblock %}
+{% block title %}Galerie Manager | BissoNico{% endblock %}
 
 {% block body %}
     {% for messages in app.flashes('success') %}
@@ -15,42 +15,39 @@
             {{ messages }}
         </div>
     {% endfor %}
-    <h2 class="text-center mb-4">Gérer les commentaires</h2>
+    <h2 class="text-center mb-4">Gérer ma galerie</h2>
 
     {% include "admin/_menu.html.twig" %}
 
-    {% if comments is not empty %}
+    {% if gallery is not empty %}
         <table class="table table-striped">
             <thead>
                 <tr>
-                    <th>Pseudo</th>
-                    <th scope="col">Commentaire</th>
+                    <th>Titre</th>
+                    <th scope="col">Contenu</th>
                     <th scope="col">Date</th>
                     <th scope="col">Statut</th>
                     <th scope="col">Actions</th>
                 </tr>
             </thead>
             <tbody>
-                {% for comment in comments %}
+                {% for post in gallery %}
                     <tr>
-                        <th class="align-middle">{{ comment.user.pseudo }}</th>
-                        <td class="align-middle">{{ comment.content }}</td>
-                        <td class="align-middle">{{ comment.createAt|date('d/m/Y') }}</td>
+                        <th class="align-middle">{{ post.title }}</th>
+                        <td class="align-middle">{{ (post.content|raw)|slice(0,10) ~ '...' }}</td>
+                        <td class="align-middle">{{ post.createAt|date('d/m/Y') }}</td>
                         <td class="align-middle">
-                            {% if comment.status == "W" %}
-                                <span class="badge badge-pill badge-warning">En attente</span>
+                            {% if post.status == "NP" %}
+                                <span class="badge badge-pill badge-warning">Non publié</span>
                             {% endif %}
-                            {% if comment.status == "V" %}
-                                <span class="badge badge-pill badge-success">Approuvé</span>
-                            {% endif %}
-                            {% if comment.status == "R" %}
-                                <span class="badge badge-pill badge-danger">Non approuvé</span>
+                            {% if post.status == "P" %}
+                                <span class="badge badge-pill badge-success">Publié</span>
                             {% endif %}
                         </td>
                         <td class="align-middle">
                             <div class="d-flex flex-column flex-md-row">
-                                <a href="{{ path('comment_action', {'status': 'V', 'commentId': comment.id}) }}" class="btn btn-success mr-2 mb-2"><i class="fas fa-thumbs-up"></i></a>
-                                <a href="{{ path('comment_action', {'status': 'R', 'commentId': comment.id}) }}" class="btn btn-danger mr-2 mb-2"><i class="fas fa-thumbs-down"></i></a>
+                                <a href="{{ path('admin_dashboard') }}" class="btn btn-success mr-2 mb-2"><i class="fas fa-thumbs-up"></i></a>
+                                <a href="{{ path('admin_dashboard') }}" class="btn btn-danger mr-2 mb-2"><i class="fas fa-thumbs-down"></i></a>
                             </div>
                         </td>
                     </tr>
@@ -58,7 +55,7 @@
             </tbody>
         </table>
         <div class="text-center d-flex justify-content-center">
-            {{ knp_pagination_render(comments) }}
+            {{ knp_pagination_render(gallery) }}
         </div>
     {% else %}
         <div class="text-center my-4 border p-4 text-muted">

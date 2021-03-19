@@ -111,6 +111,12 @@
             "config/packages/fos_ckeditor.yaml"
         ]
     },
+    "gregwar/captcha": {
+        "version": "v1.1.9"
+    },
+    "gregwar/captcha-bundle": {
+        "version": "v2.1.4"
+    },
     "helios-ag/fm-elfinder-bundle": {
         "version": "10.0",
         "recipe": {

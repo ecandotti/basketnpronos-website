@@ -1,0 +1,21 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Ajouter dans la galerie | BissoNico{% endblock %}
+
+{% block body %}
+    <h2 class="text-center mb-4">Ajouter dans la galerie</h2>
+
+    {% include "admin/_menu.html.twig" %}
+
+    {{ form_start(form) }}
+        {{ form_row(form.title) }}
+        <div class="my-2">
+            {{ form_row(form.status) }}
+        </div>
+        {{ form_row(form.content) }}
+        <div class="d-flex my-4 align-items-center">
+            {{ form_row(form.publier) }}
+            <a href="{{ path('admin_dashboard') }}" class="btn btn-danger mr-2">Annuler</a>
+        </div>
+    {{ form_end(form) }}
+{% endblock %}

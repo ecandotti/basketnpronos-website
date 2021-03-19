@@ -3,8 +3,10 @@
 namespace App\Controller;
 
 use App\Entity\Comment;
+use App\Entity\Gallery;
 use App\Entity\Pronostic;
 use App\Form\CommentType;
+use App\Form\GalleryType;
 use DateTime;
 use Doctrine\ORM\EntityManagerInterface;
 use Knp\Component\Pager\PaginatorInterface;
@@ -24,7 +26,7 @@ class MainController extends AbstractController
     }
 
     /**
-     * @Route("/notice", name="notice")
+     * @Route("/notice", name="notice", methods={"GET", "POST"})
      */
     public function notice(Request $request, EntityManagerInterface $em, PaginatorInterface $paginator): Response
     {
@@ -32,9 +34,9 @@ class MainController extends AbstractController
         $form = $this->createForm(CommentType::class, $comment);
         $form->handleRequest($request);
 
-        $comments = $em->getRepository(Comment::class)->findBy([],[
-            'createAt' => 'DESC'
-        ]);
+        $comments = $em->getRepository(Comment::class)->findBy([
+            'status' => 'V'
+        ],['createAt' => 'DESC']);
         
         $comments = $paginator->paginate(
             $comments, // Requête contenant les données à paginer
@@ -52,10 +54,7 @@ class MainController extends AbstractController
             $doctrine->flush();
 
             $this->addFlash('success', 'Commentaire posté avec succès. Cependant le commentaire doit être approuvé par l’administrateur pour être visible');
-            return $this->render('notice.html.twig', [
-                'form' => $form->createView(),
-                'comments' => $comments
-            ]);
+            return $this->redirectToRoute('notice');
         }
 
         return $this->render('notice.html.twig', [
@@ -75,9 +74,15 @@ class MainController extends AbstractController
     /**
      * @Route("/gallery", name="gallery")
      */
-    public function gallery(): Response
+    public function gallery(EntityManagerInterface $em): Response
     {
-        return $this->render('gallery.html.twig');
+        $gallery = $em->getRepository(Gallery::class)->findBy([
+            'status' => 'P'
+        ], [ 'createAt' => 'DESC' ]);
+
+        return $this->render('gallery.html.twig', [
+            'gallery' => $gallery
+        ]);
     }
 
     /**

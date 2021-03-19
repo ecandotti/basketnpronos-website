@@ -1,7 +1,26 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Gallerie | Bissonico{% endblock %}
+{% block title %}Galerie | Bissonico{% endblock %}
 
 {% block body %}
-    <h2 class="text-center my-4">Gallerie</h2>
+    <h2 class="text-center my-4">Galerie</h2>
+    <div class="my-4">
+        {% if gallery is not empty %}
+            {% for post in gallery %}    
+                <div class="mb-2">
+                    <div class="list-group-item flex-column align-items-start">
+                        <div class="d-flex w-100 justify-content-between">
+                            <h4 class="mb-1">{{ post.title }}</h4>
+                            <span class="text-muted">{{ post.createAt|date('d-m-Y H:i:s') }}</span>
+                        </div>
+                        <div class="my-2 text-secondary">{{ post.content|raw }}</div>
+                    </div>
+                </div>
+            {% endfor %}
+        {% else %}
+            <div class="text-center my-4 border p-4 text-muted">
+                Aucune image disponible
+            </div>
+        {% endif %}
+    </div>
 {% endblock %}
