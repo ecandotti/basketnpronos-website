@@ -32,7 +32,9 @@
             </div>
         </div>
     {% else %}
-        <h6>Aucun pronostiques disponible :(</h6>
+    <div class="text-center my-4 border p-4 text-muted">
+        Aucun pronostiques disponible
+    </div>
     {% endfor %}
     <div class="text-center d-flex justify-content-center">
         {{ knp_pagination_render(pronostiques) }}

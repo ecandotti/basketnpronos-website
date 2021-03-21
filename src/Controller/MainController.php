@@ -72,17 +72,11 @@ class MainController extends AbstractController
     }
 
     /**
-     * @Route("/gallery", name="gallery")
+     * @Route("/community", name="community")
      */
-    public function gallery(EntityManagerInterface $em): Response
+    public function community(EntityManagerInterface $em): Response
     {
-        $gallery = $em->getRepository(Gallery::class)->findBy([
-            'status' => 'P'
-        ], [ 'createAt' => 'DESC' ]);
-
-        return $this->render('gallery.html.twig', [
-            'gallery' => $gallery
-        ]);
+        return $this->render('community.html.twig');
     }
 
     /**
@@ -90,9 +84,15 @@ class MainController extends AbstractController
      */
     public function history(Request $request, PaginatorInterface $paginator): Response
     {
-        $pronostiques = $this->getDoctrine()->getRepository(Pronostic::class)->findBy([],[
-            'createDate' => 'DESC'
-        ]);
+        $currentDate = new DateTime();
+
+        $pronostiques = $this->getDoctrine()->getRepository(Pronostic::class)->findBy([]);
+
+        for ($i=0; $i < count($pronostiques); $i++) { 
+            if ($pronostiques[$i]->createAt == $currentDate->format('d-m-Y')) {
+                unset($pronostiques[$i]);
+            }
+        }
 
         $pronostiques = $paginator->paginate(
             $pronostiques, // Requête contenant les données à paginer

@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Gallery;
 use App\Form\GalleryType;
 use App\Repository\GalleryRepository;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -16,16 +17,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class GalleryController extends AbstractController
 {
     /**
-     * @Route("/", name="gallery_index", methods={"GET"})
-     */
-    public function index(GalleryRepository $galleryRepository): Response
-    {
-        return $this->render('gallery/index.html.twig', [
-            'galleries' => $galleryRepository->findAll(),
-        ]);
-    }
-
-    /**
+     * @IsGranted("ROLE_ADMIN")
      * @Route("/new", name="gallery_new", methods={"GET","POST"})
      */
     public function new(Request $request): Response
@@ -59,6 +51,7 @@ class GalleryController extends AbstractController
     }
 
     /**
+     * @IsGranted("ROLE_ADMIN")
      * @Route("/{id}/edit", name="gallery_edit", methods={"GET","POST"})
      */
     public function edit(Request $request, Gallery $gallery): Response
@@ -79,6 +72,7 @@ class GalleryController extends AbstractController
     }
 
     /**
+     * @IsGranted("ROLE_ADMIN")
      * @Route("/{id}", name="gallery_delete", methods={"DELETE"})
      */
     public function delete(Request $request, Gallery $gallery): Response
