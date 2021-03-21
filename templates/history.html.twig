@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Historique | Bissonico{% endblock %}
+{% block title %}Historique | BasketNPronos{% endblock %}
 
 {% block body %}
     <h2 class="text-center my-4">Historique</h2>
@@ -15,13 +15,13 @@
                 <li class="list-group-item">
                     Resultat : 
                     <span class="mb-1 text-secondary">
-                        {% if pronostique.result.name == "ND" %}
+                        {% if pronostique.result == "ND" %}
                             <span class="badge badge-warning">Non définie</span>
                         {% endif %}
-                        {% if pronostique.result.name == "G" %}
+                        {% if pronostique.result == "G" %}
                             <span class="badge badge-success">Gagné</span>
                         {% endif %}
-                        {% if pronostique.result.name == "P" %}
+                        {% if pronostique.result == "P" %}
                             <span class="badge badge-danger">Perdu</span>
                         {% endif %}
                     </span>

@@ -1,0 +1,57 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste des clients | BasketNPronos{% endblock %}
+
+{% block body %}
+    <h2 class="text-center mb-4">Liste des clients</h2>
+
+    {% include "admin/_menu.html.twig" %}
+
+    {% if clients is not empty %}
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th scope="col">Pseudo</th>
+                    <th scope="col">eMail</th>
+                    <th scope="col">Vérifié</th>
+                    <th scope="col">Statut</th>
+                    <th scope="col">Date de création</th>
+                    <th scope="col">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for client in clients %}
+                    <tr>
+                        <th class="align-middle">{{ client.pseudo }}</th>
+                        <td class="align-middle">{{ client.email }}</td>
+                        <td class="align-middle">
+                            {% if client.isVerified %}
+                                <span class="badge badge-pill badge-success">Oui</span>
+                            {% else %}
+                                <span class="badge badge-pill badge-danger">Non</span>
+                            {% endif %}
+                        </td>
+                        <td class="align-middle">
+                            {% if client.isVIP %}
+                                <span class="badge badge-pill badge-warning">VIP</span>
+                            {% else %}
+                                <span class="badge badge-pill badge-info">simple</span>
+                            {% endif %}
+                        </td>
+                        <td class="align-middle">{{ client.createAt|date('d/m/Y') }}</td>
+                        <td class="align-middle">
+                            <button class="btn btn-info" disabled>X</button>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <div class="text-center d-flex justify-content-center">
+            {{ knp_pagination_render(clients) }}
+        </div>
+    {% else %}
+        <div class="text-center my-4 border p-4 text-muted">
+            Aucun commentaire disponible
+        </div>
+    {% endif %}
+{% endblock %}

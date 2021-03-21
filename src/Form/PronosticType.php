@@ -12,6 +12,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use FOS\CKEditorBundle\Form\Type\CKEditorType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 
 class PronosticType extends AbstractType
 {
@@ -20,21 +21,28 @@ class PronosticType extends AbstractType
         $builder
             ->add('title', TextType::class, [
                 'label' => 'Titre : ',
-                'required' => true
+                'required' => true,
+                'attr' => ['class' => 'form-control my-2']
             ])
             ->add('content', CKEditorType::class, [
                 'label' => 'Contenu : ',
                 'required' => true
             ])
-            ->add('result', EntityType::class, [
-                'class' => Result::class,
-                'choice_label' => 'name',
-                'label' => 'Resultat : '
+            ->add('result', ChoiceType::class, [
+                'required' => true,
+                'label' => 'Status',
+                'choices' => [
+                    'Non défini' => 'ND',
+                    'Gagné' => 'G',
+                    'Perdu' => 'P',
+                ],
+                'attr' => ['class' => 'form-control my-2']
             ])
             ->add('category', EntityType::class, [
                 'class' => Category::class,
                 'choice_label' => 'name',
-                'label' => 'Catégorie : '
+                'label' => 'Catégorie : ',
+                'attr' => ['class' => 'form-control my-2']
             ])
             ->add('valider', SubmitType::class, [
                 'label' => 'Valider',

@@ -45,11 +45,6 @@ class Pronostic
     private $category;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Result::class, inversedBy="pronostics")
-     */
-    private $result;
-
-    /**
      * @ORM\Column(type="datetime")
      */
     private $createDate;
@@ -58,6 +53,11 @@ class Pronostic
      * @ORM\OneToMany(targetEntity=Comment::class, mappedBy="pronostic")
      */
     private $comments;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $result;
 
     public function __construct()
     {
@@ -129,18 +129,6 @@ class Pronostic
         return $this;
     }
 
-    public function getResult(): ?Result
-    {
-        return $this->result;
-    }
-
-    public function setResult(?Result $result): self
-    {
-        $this->result = $result;
-
-        return $this;
-    }
-
     public function getCreateDate(): ?\DateTimeInterface
     {
         return $this->createDate;
@@ -179,6 +167,18 @@ class Pronostic
                 $comment->setPronostic(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getResult(): ?string
+    {
+        return $this->result;
+    }
+
+    public function setResult(string $result): self
+    {
+        $this->result = $result;
 
         return $this;
     }

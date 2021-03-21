@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Comment;
 use App\Entity\Gallery;
 use App\Entity\Pronostic;
+use App\Entity\User;
 use App\Form\GalleryType;
 use DateTime;
 use Doctrine\ORM\EntityManagerInterface;
@@ -124,9 +125,9 @@ class AdminController extends AbstractController
     }
 
     /**
-     * @Route("/modify-home", name="admin_modify_home")
+     * @Route("/performance", name="admin_performance")
      */
-    public function adminModifyHome(Request $request, PaginatorInterface $paginator): Response
+    public function adminPerformance(Request $request, PaginatorInterface $paginator): Response
     {
         $pronostiques = $this->getDoctrine()->getRepository(Pronostic::class)->findBy([],[
             'createDate' => 'DESC'
@@ -138,8 +139,28 @@ class AdminController extends AbstractController
             10 // Nombre de résultats par page
         );
 
-        return $this->render('admin/modify-home.html.twig', [
+        return $this->render('admin/performance.html.twig', [
             'pronostiques' => $pronostiques
+        ]);
+    }
+
+    /**
+     * @Route("/client", name="admin_list_cli")
+     */
+    public function adminListClient(Request $request, PaginatorInterface $paginator): Response
+    {
+        $clients = $this->getDoctrine()->getRepository(User::class)->findBy([],[
+            'createAt' => 'DESC'
+        ]);
+
+        $clients = $paginator->paginate(
+            $clients, // Requête contenant les données à paginer
+            $request->query->getInt('page', 1), // Numéro de la page en cours, passé dans l'URL, 1 si aucune page
+            10 // Nombre de résultats par page
+        );
+
+        return $this->render('admin/list-client.html.twig', [
+            'clients' => $clients
         ]);
     }
 

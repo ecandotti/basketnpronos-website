@@ -1,10 +1,9 @@
 {{ form_start(form) }}
     {{ form_row(form.title) }}
-    {{ form_row(form.category) }}
+    {{ form_row(form.status) }}
     {{ form_row(form.content) }}
-    {{ form_row(form.result) }}
     <div class="d-flex my-4">
-    {{ form_row(form.valider) }}
+    {{ form_row(form.publier) }}
     <a href="{{ path('admin_dashboard') }}" class="btn btn-danger mr-2">Annuler</a>
     </div>
 {{ form_end(form) }}

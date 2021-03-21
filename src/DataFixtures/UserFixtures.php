@@ -21,8 +21,8 @@ class UserFixtures extends Fixture
     {
         $user = new User();
         $user
-            ->setEmail('admin@bissonico.fr')
-            ->setPseudo('BISSONICO')
+            ->setEmail('admin@basketnprono.fr')
+            ->setPseudo('ADMIN')
             ->setPassword($this->encoder->encodePassword($user, 'password'))
             ->setIsVerified(true)
             ->setIsVIP(true)

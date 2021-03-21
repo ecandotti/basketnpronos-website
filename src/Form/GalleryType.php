@@ -32,7 +32,7 @@ class GalleryType extends AbstractType
                     'Publié' => 'P',
                     'Non Publié' => 'NP',
                 ],
-                'attr' => ['class' => 'form-control']
+                'attr' => ['class' => 'form-control my-2']
             ])
             ->add('publier', SubmitType::class, [
                 'attr' => ['class' => 'btn btn-success mr-2']

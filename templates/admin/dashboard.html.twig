@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Tableau de bord | BissoNico{% endblock %}
+{% block title %}Tableau de bord | BasketNPronos{% endblock %}
 
 {% block body %}
     {% for messages in app.flashes('success') %}
@@ -48,13 +48,13 @@
                     <h6 class="mt-1">
                         Resultat :
                         <span class="mb-1 text-secondary">
-                            {% if prono.result.name == "ND" %}
+                            {% if prono.result == "ND" %}
                                 <span class="badge badge-warning">Non définie</span>
                             {% endif %}
-                            {% if prono.result.name == "G" %}
+                            {% if prono.result == "G" %}
                                 <span class="badge badge-success">Gagné</span>
                             {% endif %}
-                            {% if prono.result.name == "P" %}
+                            {% if prono.result == "P" %}
                                 <span class="badge badge-danger">Perdu</span>
                             {% endif %}
                         </span>

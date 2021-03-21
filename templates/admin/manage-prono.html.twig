@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Pronostique Manager | BissoNico{% endblock %}
+{% block title %}Pronostique Manager | BasketNPronos{% endblock %}
 
 {% block body %}
     <h2 class="text-center mb-4">Gérer mes pronostiques</h2>
@@ -21,20 +21,20 @@
             <tbody>
                 {% for pronostic in pronostiques %}
                     <tr>
-                        <th scope="row">{{ pronostic.title }}</th>
-                        <th scope="row"><u>{{ pronostic.category.name }}</u></th>
-                        <td>
-                            {% if pronostic.result.name == "ND" %}
+                        <th scope="row" class="align-middle">{{ pronostic.title }}</th>
+                        <th scope="row" class="align-middle"><b>{{ pronostic.category.name }}</b></th>
+                        <td class="align-middle">
+                            {% if pronostic.result == "ND" %}
                                 <span class="badge badge-warning">Non définie</span>
                             {% endif %}
-                            {% if pronostic.result.name == "G" %}
+                            {% if pronostic.result == "G" %}
                                 <span class="badge badge-success">Gagné</span>
                             {% endif %}
-                            {% if pronostic.result.name == "P" %}
+                            {% if pronostic.result == "P" %}
                                 <span class="badge badge-danger">Perdu</span>
                             {% endif %}
                         </td>
-                        <th scope="row">{{ pronostic.createAt }}</th>
+                        <th scope="row" class="align-middle">{{ pronostic.createAt }}</th>
                         <td>
                             <div class="d-flex flex-column flex-md-row">
                                 <a href="{{ path('pronostic_edit', {'id': pronostic.id}) }}" class="btn btn-warning mr-2 mb-2">

@@ -1,9 +1,9 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Pronostique du jour | Bissonico{% endblock %}
+{% block title %}Pronostiques du jour | BasketNPronos{% endblock %}
 
 {% block body %}
-    <h3 class="text-center my-2 text-warning "><i class="fas fa-star"></i> Pronostique du jour <i class="fas fa-star"></i></h3>
+    <h3 class="text-center my-2 text-warning "><i class="fas fa-star"></i> Pronostiques du jour <i class="fas fa-star"></i></h3>
 
     <section>
         <div class="d-flex flex-column">
@@ -30,7 +30,7 @@
         {% endfor %}
         {% if not currentProno %}
             <div class="text-center my-4 border p-4 text-muted">
-                Le pronostique du jour n'est pas encore sortie !
+                Les pronostiques du jour ne sont pas encore sorties !
             </div>
         {% endif %}
     </section>
