@@ -37,11 +37,11 @@
                     <h6 class="mt-1">
                         Catégorie :
                         <span class="mb-1 text-secondary">
-                            {% if prono.category.name == "Fiable" %}
-                                <span class="badge badge-success">{{ prono.category.name}}</span>
+                            {% if prono.category == "F" %}
+                                <span class="badge badge-success">Fiable</span>
                             {% endif %}
-                            {% if prono.category.name == "Fun" %}
-                                <span class="badge badge-info">{{ prono.category.name}}</span>
+                            {% if prono.category == "NF" %}
+                                <span class="badge badge-info">Fun</span>
                             {% endif %}
                         </span>
                     </h6>

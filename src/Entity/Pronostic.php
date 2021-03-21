@@ -22,7 +22,7 @@ class Pronostic
     /**
      * @ORM\Column(type="string", length=255)
      */
-    public $createAt;
+    private $createAt;
 
     /**
      * @ORM\Column(type="text")
@@ -40,11 +40,6 @@ class Pronostic
     private $user;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Category::class, inversedBy="pronostics")
-     */
-    private $category;
-
-    /**
      * @ORM\Column(type="datetime")
      */
     private $createDate;
@@ -54,10 +49,11 @@ class Pronostic
      */
     private $result;
 
-    public function __construct()
-    {
-        $this->comments = new ArrayCollection();
-    }
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $category;
+
 
     public function getId(): ?int
     {
@@ -112,18 +108,6 @@ class Pronostic
         return $this;
     }
 
-    public function getCategory(): ?Category
-    {
-        return $this->category;
-    }
-
-    public function setCategory(?Category $category): self
-    {
-        $this->category = $category;
-
-        return $this;
-    }
-
     public function getCreateDate(): ?\DateTimeInterface
     {
         return $this->createDate;
@@ -144,6 +128,18 @@ class Pronostic
     public function setResult(string $result): self
     {
         $this->result = $result;
+
+        return $this;
+    }
+
+    public function getCategory(): ?string
+    {
+        return $this->category;
+    }
+
+    public function setCategory(string $category): self
+    {
+        $this->category = $category;
 
         return $this;
     }

@@ -45,8 +45,46 @@
                     <span class="sr-only">Suivant</span>
                 </a>
             </div>
-            <div>
-                <h4>Performance</h4>
+            <div class="mt-5">
+                <h3 class="text-center"><i class="fas fa-tachometer-alt"></i> Performance du mois de {{ month }}</h3>
+                <table class="table my-4 border">
+                    <thead class="thead-dark">
+                        <tr>
+                            <th scope="col" class="border-dark text-center">
+                                <i class="far fa-star"></i>
+                                <i class="fas fa-basketball-ball"></i>
+                                <i class="far fa-star"></i>
+                            </th>
+                            <th scope="col" class="text-center">Paris</th>
+                            <th scope="col" class="text-center">% Total</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <th scope="row" class="bg-dark text-white">Gagné</th>
+                            <td class="text-center">{{ number_win }}</td>
+                            {% if number_win != 0 %}
+                                <td class="text-center">{{( (number_win / (number_win + number_loose)) * 100)|slice(0,4) }}</td>
+                            {% else %}
+                                <td class="text-center">0</td>
+                            {% endif %}
+                        </tr>
+                        <tr>
+                            <th scope="row" class="bg-dark text-white">Perdu</th>
+                            <td class="text-center">{{ number_loose }}</td>
+                            {% if number_loose != 0 %}
+                                <td class="text-center">{{ ((number_loose / (number_win + number_loose)) * 100)|slice(0,4) }}</td>
+                            {% else %}
+                                <td class="text-center">0</td>
+                            {% endif %}
+                        </tr>
+                        <tr>
+                    </tbody>
+                </table>
+                <div class="border p-4 my-4">
+                    <h3>Sur les 5 derniers paris</h3>
+                    <h4 class="mt-4"><span class="text-warning">BasketNPronos</span> en a gagnés {{ result_fifth }}</h4>
+                </div>
             </div>
         {% endblock %}
         </div>

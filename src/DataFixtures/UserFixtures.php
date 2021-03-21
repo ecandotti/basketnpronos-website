@@ -3,9 +3,11 @@
 namespace App\DataFixtures;
 
 use App\Entity\User;
+use DateTime;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+use Symfony\Component\Validator\Constraints\Date;
 
 class UserFixtures extends Fixture
 {
@@ -26,6 +28,7 @@ class UserFixtures extends Fixture
             ->setPassword($this->encoder->encodePassword($user, 'password'))
             ->setIsVerified(true)
             ->setIsVIP(true)
+            ->setCreateAt(new DateTime('now'))
             ->setRoles(['ROLE_ADMIN'])
         ;
         

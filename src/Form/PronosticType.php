@@ -38,10 +38,13 @@ class PronosticType extends AbstractType
                 ],
                 'attr' => ['class' => 'form-control my-2']
             ])
-            ->add('category', EntityType::class, [
-                'class' => Category::class,
-                'choice_label' => 'name',
-                'label' => 'Catégorie : ',
+            ->add('category', ChoiceType::class, [
+                'required' => true,
+                'label' => 'Status',
+                'choices' => [
+                    'Fiable' => 'F',
+                    'Fun' => 'NF',
+                ],
                 'attr' => ['class' => 'form-control my-2']
             ])
             ->add('valider', SubmitType::class, [

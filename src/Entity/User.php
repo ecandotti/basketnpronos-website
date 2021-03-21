@@ -54,7 +54,7 @@ class User implements UserInterface
     private $isVIP;
 
     /**
-     * @ORM\OneToMany(targetEntity=Pronostic::class, mappedBy="pseudo")
+     * @ORM\OneToMany(targetEntity=Pronostic::class, mappedBy="user")
      */
     private $pronostics;
 
@@ -203,7 +203,7 @@ class User implements UserInterface
     {
         if (!$this->pronostics->contains($pronostic)) {
             $this->pronostics[] = $pronostic;
-            $pronostic->setPseudo($this);
+            $pronostic->user->setPseudo($this);
         }
 
         return $this;
@@ -213,8 +213,8 @@ class User implements UserInterface
     {
         if ($this->pronostics->removeElement($pronostic)) {
             // set the owning side to null (unless already changed)
-            if ($pronostic->getPseudo() === $this) {
-                $pronostic->setPseudo(null);
+            if ($pronostic->user->getPseudo() === $this) {
+                $pronostic->user->setPseudo(null);
             }
         }
 

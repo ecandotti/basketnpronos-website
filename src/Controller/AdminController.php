@@ -68,7 +68,7 @@ class AdminController extends AbstractController
         $gallery = $paginator->paginate(
             $gallery, // Requête contenant les données à paginer
             $request->query->getInt('page', 1), // Numéro de la page en cours, passé dans l'URL, 1 si aucune page
-            10 // Nombre de résultats par page
+            5 // Nombre de résultats par page
         );
 
         return $this->render('admin/manage-gallery.html.twig', [
@@ -88,7 +88,7 @@ class AdminController extends AbstractController
         $comments = $paginator->paginate(
             $comments, // Requête contenant les données à paginer
             $request->query->getInt('page', 1), // Numéro de la page en cours, passé dans l'URL, 1 si aucune page
-            10 // Nombre de résultats par page
+            5 // Nombre de résultats par page
         );
 
         return $this->render('admin/manage-comments.html.twig', [
@@ -136,7 +136,7 @@ class AdminController extends AbstractController
         $pronostiques = $paginator->paginate(
             $pronostiques, // Requête contenant les données à paginer
             $request->query->getInt('page', 1), // Numéro de la page en cours, passé dans l'URL, 1 si aucune page
-            10 // Nombre de résultats par page
+            5 // Nombre de résultats par page
         );
 
         return $this->render('admin/performance.html.twig', [
@@ -156,7 +156,7 @@ class AdminController extends AbstractController
         $clients = $paginator->paginate(
             $clients, // Requête contenant les données à paginer
             $request->query->getInt('page', 1), // Numéro de la page en cours, passé dans l'URL, 1 si aucune page
-            10 // Nombre de résultats par page
+            5 // Nombre de résultats par page
         );
 
         return $this->render('admin/list-client.html.twig', [

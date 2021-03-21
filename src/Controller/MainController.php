@@ -20,9 +20,64 @@ class MainController extends AbstractController
     /**
      * @Route("/", name="home")
      */
-    public function home(): Response
+    public function home(EntityManagerInterface $em): Response
     {
-        return $this->render('base.html.twig');
+        /// >>> Récuperer le mois actuelle
+        $currMonth = new DateTime('now');
+        $months = [ '03' => 'Janvier',
+                    '02' => 'Fevrier',
+                    '03' => 'Mars',
+                    '04' => 'Avril',
+                    '05' => 'Mai',
+                    '06' => 'Juin',
+                    '07' => 'Juillet',
+                    '08' => 'Août',
+                    '09' => 'Septembre',
+                    '10' => 'Octobre',
+                    '11' => 'Novembre',
+                    '12' => 'Décembre'
+        ];
+        /// <<< Récuperer le mois actuelle
+
+        /// >>> Récuperer le nombre de paris gagnés / perdu
+        $number_win = count($em->getRepository(Pronostic::class)->findBy([
+            'result' => 'G'
+        ]));
+        $number_loose = count($em->getRepository(Pronostic::class)->findBy([
+            'result' => 'P'
+        ]));
+
+        /// <<< Récuperer le nombre de paris gagnés / perdu
+
+        /// >>> Récuperer nombre de paris gagné sur les 5 derniers
+        $fifthPronostiques = $em->getRepository(Pronostic::class)->findBy([
+            'category' => 'F'
+        ],['createDate' => 'DESC'], 7);
+        $result_fifth = 0;
+
+        for ($i=0; $i < count($fifthPronostiques); $i++) { 
+            if ($fifthPronostiques[$i]->getResult() === 'ND') {
+                unset($fifthPronostiques[$i]);
+            }
+        }
+
+        while(count($fifthPronostiques) > 5) { 
+            array_pop($fifthPronostiques);
+        }
+
+        foreach ($fifthPronostiques as $key => $value) {
+            if ($value->getResult() === 'G') {
+                $result_fifth++;
+            }
+        }
+        /// <<< Récuperer nombre de paris gagné sur les 5 derniers
+
+        return $this->render('base.html.twig', [
+            'month' => $months[$currMonth->format('m')],
+            'result_fifth' => $result_fifth,
+            'number_win' => $number_win,
+            'number_loose' => $number_loose
+        ]);
     }
 
     /**
@@ -88,16 +143,16 @@ class MainController extends AbstractController
 
         $pronostiques = $this->getDoctrine()->getRepository(Pronostic::class)->findBy([]);
 
-        for ($i=0; $i < count($pronostiques); $i++) { 
-            if ($pronostiques[$i]->createAt == $currentDate->format('d-m-Y')) {
-                unset($pronostiques[$i]);
+        foreach ($pronostiques as $key => $value){
+            if ($value->getCreateAt() == $currentDate->format('d-m-Y')) {
+                unset($pronostiques[$key]);
             }
         }
 
         $pronostiques = $paginator->paginate(
             $pronostiques, // Requête contenant les données à paginer
             $request->query->getInt('page', 1), // Numéro de la page en cours, passé dans l'URL, 1 si aucune page
-            10 // Nombre de résultats par page
+            5 // Nombre de résultats par page
         );
 
         return $this->render('history.html.twig', [

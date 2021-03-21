@@ -22,7 +22,14 @@
                 {% for pronostic in pronostiques %}
                     <tr>
                         <th scope="row" class="align-middle">{{ pronostic.title }}</th>
-                        <th scope="row" class="align-middle"><b>{{ pronostic.category.name }}</b></th>
+                        <th scope="row" class="align-middle">
+                            {% if pronostic.category == "F" %}
+                                <span class="badge badge-info">Fiable</span>
+                            {% endif %}
+                            {% if pronostic.category == "NF" %}
+                                <span class="badge badge-info">Fun</span>
+                            {% endif %}
+                        </th>
                         <td class="align-middle">
                             {% if pronostic.result == "ND" %}
                                 <span class="badge badge-warning">Non définie</span>

@@ -11,7 +11,16 @@
                 {{ pronostique.content|raw }}
             </div>
             <ul class="list-group list-group-flush">
-                <li class="list-group-item">Catégorie : <span class="badge badge-info">{{ pronostique.category.name }}</span></li>
+                <li class="list-group-item">Catégorie : 
+                    <span class="badge badge-info">
+                        {% if pronostique.category == "F" %}
+                            Fiable
+                        {% endif %}
+                        {% if pronostique.category == "NF" %}
+                           Fun
+                        {% endif %}
+                    </span>
+                </li>
                 <li class="list-group-item">
                     Resultat : 
                     <span class="mb-1 text-secondary">
@@ -33,7 +42,7 @@
         </div>
     {% else %}
     <div class="text-center my-4 border p-4 text-muted">
-        Aucun pronostiques disponible
+        Aucun pronostique disponible
     </div>
     {% endfor %}
     <div class="text-center d-flex justify-content-center">
