@@ -25,11 +25,11 @@
                 <span class="text-muted mt-3"><i class="fas fa-shield-alt"></i> Paiement sécurisé via Paypal</span>
             </div>
             {% if app.user and is_granted('ROLE_USER') %}
-            <a href="{{ path('home') }}" class="btn btn-lg btn-block btn-primary">
-                <span class="text-center my-4">Rejoindre le <span class="text-warning">groupe</span></span>
+            <a href="{{ path('checkout_paypal', { priceId: 1 }) }}" class="btn btn-lg btn-block btn-primary">
+                <span class="text-center my-4"><i class="fas fa-lock"></i> Rejoindre le <span class="text-warning">groupe</span></span>
             {% else %}
-             <a href="{{ path('app_register') }}" class="btn btn-lg btn-block btn-primary">
-                Devenir <span class="text-warning">V.I.P</span>
+             <a href="{{ path('checkout_paypal', { priceId: 1 }) }}" class="btn btn-lg btn-block btn-primary">
+                <i class="fas fa-lock"></i> Devenir <span class="text-warning">V.I.P</span>
             {% endif %}
             </a>
         </div>
@@ -47,11 +47,11 @@
                 <span class="text-muted mt-3"><i class="fas fa-shield-alt"></i> Paiement sécurisé via Paypal</span>
             </div>
             {% if app.user and is_granted('ROLE_USER') %}
-            <a href="{{ path('home') }}" class="btn btn-lg btn-block btn-primary">
-                <span class="text-center my-4">Rejoindre le <span class="text-warning">groupe</span></span>
+            <a href="{{ path('checkout_paypal', { priceId: 2}) }}" class="btn btn-lg btn-block btn-primary">
+                <span class="text-center my-4"><i class="fas fa-lock"></i> Rejoindre le <span class="text-warning">groupe</span></span>
             {% else %}
-             <a href="{{ path('app_register') }}" class="btn btn-lg btn-block btn-primary">
-                Devenir <span class="text-warning">V.I.P</span>
+             <a href="{{ path('checkout_paypal', { priceId: 2}) }}" class="btn btn-lg btn-block btn-primary">
+                <i class="fas fa-lock"></i> Devenir <span class="text-warning">V.I.P</span>
             {% endif %}
             </a>
         </div>
@@ -69,11 +69,11 @@
                 <span class="text-muted mt-3"><i class="fas fa-shield-alt"></i> Paiement sécurisé via Paypal</span>
             </div>
             {% if app.user and is_granted('ROLE_USER') %}
-            <a href="{{ path('home') }}" class="btn btn-lg btn-block btn-primary">
-                <span class="text-center my-4">Rejoindre le <span class="text-warning">groupe</span></span>
+            <a href="{{ path('checkout_paypal', { priceId: 3 }) }}" class="btn btn-lg btn-block btn-primary">
+                <span class="text-center my-4"><i class="fas fa-lock"></i> Rejoindre le <span class="text-warning">groupe</span></span>
             {% else %}
-             <a href="{{ path('app_register') }}" class="btn btn-lg btn-block btn-primary">
-                Devenir <span class="text-warning">V.I.P</span>
+             <a href="{{ path('checkout_paypal', { priceId: 3 }) }}" class="btn btn-lg btn-block btn-primary">
+                <i class="fas fa-lock"></i> Devenir <span class="text-warning">V.I.P</span>
             {% endif %}
             </a>
         </div>
