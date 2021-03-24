@@ -151,6 +151,12 @@
     "nikic/php-parser": {
         "version": "v4.10.4"
     },
+    "paypal/paypal-checkout-sdk": {
+        "version": "1.0.1"
+    },
+    "paypal/paypalhttp": {
+        "version": "1.0.0"
+    },
     "phpdocumentor/reflection-common": {
         "version": "2.2.0"
     },
