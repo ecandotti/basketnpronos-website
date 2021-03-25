@@ -72,15 +72,16 @@ class PaypalExpressRepository extends ServiceEntityRepository
         $paypalExpress = new PaypalExpress();
         $url = $paypalExpress->getPaypalURL();
 
+        $formule = $this->whichFormule($priceId);
         $data = new stdClass();
 
         $purshase_units = new stdClass();
         $purshase_units->custom_id = $priceId;
-        $purshase_units->description = "Souscription à l'abonnement";
+        $purshase_units->description = "Abonnement BasketNPronos";
 
         $amount = new stdClass();
-        $amount->currency_code = "USD";
-        $amount->value = "10.00";
+        $amount->currency_code = "EUR";
+        $amount->value = $formule['price'];
         $purshase_units->amount = $amount;
 
         $application_context = new stdClass();
