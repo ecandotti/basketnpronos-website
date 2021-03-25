@@ -31,12 +31,13 @@ class GalleryController extends AbstractController
             $entityManager->persist($gallery);
             $entityManager->flush();
 
-            return $this->redirectToRoute('gallery_index');
+            return $this->redirectToRoute('home');
         }
 
         return $this->render('gallery/new.html.twig', [
             'gallery' => $gallery,
             'form' => $form->createView(),
+            'isVIP' => true
         ]);
     }
 
@@ -47,6 +48,7 @@ class GalleryController extends AbstractController
     {
         return $this->render('gallery/show.html.twig', [
             'gallery' => $gallery,
+            'isVIP' => true
         ]);
     }
 
@@ -68,6 +70,7 @@ class GalleryController extends AbstractController
         return $this->render('gallery/edit.html.twig', [
             'gallery' => $gallery,
             'form' => $form->createView(),
+            'isVIP' => true
         ]);
     }
 
@@ -83,6 +86,6 @@ class GalleryController extends AbstractController
             $entityManager->flush();
         }
 
-        return $this->redirectToRoute('gallery_index');
+        return $this->redirectToRoute('home');
     }
 }

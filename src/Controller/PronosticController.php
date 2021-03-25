@@ -18,16 +18,6 @@ use Symfony\Component\Routing\Annotation\Route;
 class PronosticController extends AbstractController
 {
     /**
-     * @Route("/", name="pronostic_index", methods={"GET"})
-     */
-    public function index(PronosticRepository $pronosticRepository): Response
-    {
-        return $this->render('pronostic/index.html.twig', [
-            'pronostics' => $pronosticRepository->findAll(),
-        ]);
-    }
-
-    /**
      * @IsGranted("ROLE_ADMIN")
      * @Route("/new", name="pronostic_new", methods={"GET","POST"})
      */
@@ -57,6 +47,7 @@ class PronosticController extends AbstractController
         return $this->render('pronostic/new.html.twig', [
             'pronostic' => $pronostic,
             'form' => $form->createView(),
+            'isVIP' => true
         ]);
     }
 
@@ -79,6 +70,7 @@ class PronosticController extends AbstractController
         return $this->render('pronostic/edit.html.twig', [
             'pronostic' => $pronostic,
             'form' => $form->createView(),
+            'isVIP' => true
         ]);
     }
 
@@ -94,6 +86,6 @@ class PronosticController extends AbstractController
             $entityManager->flush();
         }
 
-        return $this->redirectToRoute('pronostic_index');
+        return $this->redirectToRoute('home');
     }
 }

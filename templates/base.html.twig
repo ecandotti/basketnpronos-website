@@ -26,6 +26,12 @@
                 {{ messages }}
             </div>
         {% endfor %}
+        {% for messages in app.flashes('err') %}
+            <div class="alert alert-dismissible alert-danger text-center">
+                <button type="button" class="close" data-dismiss="alert" tabindex="0">&times;</button>
+                {{ messages }}
+            </div>
+        {% endfor %}
         {% for messages in app.flashes('errVIP') %}
             <div class="alert alert-dismissible alert-danger text-center">
                 <button type="button" class="close" data-dismiss="alert" tabindex="0">&times;</button>
@@ -97,7 +103,7 @@
                             <h3>Sur les 5 derniers paris</h3>
                             <h4 class="mt-2"><span class="text-warning">BasketNPronos</span> en a gagnés {{ result_fifth }}</h4>
                         </div>
-                        {% if app.user and not app.user.isVIP %}
+                        {% if app.user and not isVIP %}
                             <div class="mb-5">
                                 <h3>Franchir le pas ?</h3>
                                 <a href="{{ path('join_us') }}" class="mt-2 btn btn-primary">Rejoindre le <span class="text-warning">groupe</span></a>

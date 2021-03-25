@@ -5,6 +5,8 @@ namespace App\Repository;
 use App\Entity\PaypalExpress;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use stdClass;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * @method PaypalExpress|null find($id, $lockMode = null, $lockVersion = null)
@@ -17,6 +19,28 @@ class PaypalExpressRepository extends ServiceEntityRepository
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, PaypalExpress::class);
+    }
+
+    public function whichFormule(string $id)
+    {
+        switch ($id) {
+            case '1':
+                $month = '3';
+                $price = '21.99';
+                break;
+            case '2':
+                $month = '1';
+                $price = '8.99';
+                break;
+            case '3':
+                $month = '12';
+                $price = '69.99';
+                break;
+            default:
+                return false;
+        }
+
+        return ['month' => $month, 'price' => $price];
     }
 
     public function getToken()
@@ -44,9 +68,29 @@ class PaypalExpressRepository extends ServiceEntityRepository
         }
     }
 
-    public function setupPayment($token) {
+    public function setupPayment($token, $priceId) {
         $paypalExpress = new PaypalExpress();
         $url = $paypalExpress->getPaypalURL();
+
+        $data = new stdClass();
+
+        $purshase_units = new stdClass();
+        $purshase_units->custom_id = $priceId;
+        $purshase_units->description = "Souscription à l'abonnement";
+
+        $amount = new stdClass();
+        $amount->currency_code = "USD";
+        $amount->value = "10.00";
+        $purshase_units->amount = $amount;
+
+        $application_context = new stdClass();
+        $application_context->brand_name = "BasketNPronos";
+        $application_context->return_url = "https://localhost:8000/paypal/capture";
+        $application_context->cancel_url = "https://localhost:8000/";
+
+        $data->intent = "CAPTURE";
+        $data->purchase_units = array($purshase_units);
+        $data->application_context = $application_context;
 
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_URL, $url.'checkout/orders');
@@ -58,23 +102,7 @@ class PaypalExpressRepository extends ServiceEntityRepository
             'Authorization: Bearer ' . $token,
             'Content-Type: application/json' 
         )); 
-        curl_setopt($ch, CURLOPT_POSTFIELDS, '
-        {
-            "intent": "CAPTURE",
-            "purchase_units": [{
-                "custom_id": "2",
-                "description": "Souscription à labonnement",
-                "amount": {
-                    "currency_code": "USD",
-                    "value": "10.00"
-                }
-            }],
-            "application_context": {
-                "brand_name": "BasketNPronos",
-                "return_url": "https://localhost:8000/paypal/capture",
-                "cancel_url": "https://localhost:8000/"
-            }
-        }');
+        curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($data));
         $response = curl_exec($ch);
         curl_close($ch);
         $result = json_decode($response);

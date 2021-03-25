@@ -3,13 +3,16 @@
 {% block title %}Nous rejoindre | BasketNPronos{% endblock %}
 
 {% block body %}
-    {% if app.user and is_granted('ROLE_USER') %}
-        <h2 class="text-center my-4">Devenir V.I.P</h2>
-    {% else %}
-        <h2 class="text-center my-4">Nous rejoindre</h2>
+    {% if not isVIP %}
+        {% if app.user and is_granted('ROLE_USER') %}
+            <h2 class="text-center my-4">Devenir V.I.P</h2>
+        {% else %}
+            <h2 class="text-center my-4">Nous rejoindre</h2>
+        {% endif %}
     {% endif %}
 
 
+    {% if not isVIP %}
     <div class="card-deck mb-5 text-center">
         <div class="card-body">
             <div class="card-header">
@@ -24,11 +27,11 @@
                 <h6 class="mb-3">Reduction de <span class="text-info">-5€</span></h6>
                 <span class="text-muted mt-3"><i class="fas fa-shield-alt"></i> Paiement sécurisé via Paypal</span>
             </div>
-            {% if app.user and is_granted('ROLE_USER') %}
+            {% if app.user and not isVIP %}
             <a href="{{ path('checkout_paypal', { priceId: 1 }) }}" class="btn btn-lg btn-block btn-primary">
                 <span class="text-center my-4"><i class="fas fa-lock"></i> Rejoindre le <span class="text-warning">groupe</span></span>
             {% else %}
-             <a href="{{ path('checkout_paypal', { priceId: 1 }) }}" class="btn btn-lg btn-block btn-primary">
+             <a href="{{ path('app_register') }}" class="btn btn-lg btn-block btn-primary">
                 <i class="fas fa-lock"></i> Devenir <span class="text-warning">V.I.P</span>
             {% endif %}
             </a>
@@ -46,11 +49,11 @@
                 <h6 class="mb-3">&nbsp;</h6>
                 <span class="text-muted mt-3"><i class="fas fa-shield-alt"></i> Paiement sécurisé via Paypal</span>
             </div>
-            {% if app.user and is_granted('ROLE_USER') %}
+            {% if app.user and not isVIP %}
             <a href="{{ path('checkout_paypal', { priceId: 2}) }}" class="btn btn-lg btn-block btn-primary">
                 <span class="text-center my-4"><i class="fas fa-lock"></i> Rejoindre le <span class="text-warning">groupe</span></span>
             {% else %}
-             <a href="{{ path('checkout_paypal', { priceId: 2}) }}" class="btn btn-lg btn-block btn-primary">
+             <a href="{{ path('app_register') }}" class="btn btn-lg btn-block btn-primary">
                 <i class="fas fa-lock"></i> Devenir <span class="text-warning">V.I.P</span>
             {% endif %}
             </a>
@@ -68,14 +71,20 @@
                 <h6 class="mb-3">Reduction de <span class="text-info">-37.89€</span></h6>
                 <span class="text-muted mt-3"><i class="fas fa-shield-alt"></i> Paiement sécurisé via Paypal</span>
             </div>
-            {% if app.user and is_granted('ROLE_USER') %}
+            {% if app.user and not isVIP %}
             <a href="{{ path('checkout_paypal', { priceId: 3 }) }}" class="btn btn-lg btn-block btn-primary">
                 <span class="text-center my-4"><i class="fas fa-lock"></i> Rejoindre le <span class="text-warning">groupe</span></span>
             {% else %}
-             <a href="{{ path('checkout_paypal', { priceId: 3 }) }}" class="btn btn-lg btn-block btn-primary">
+             <a href="{{ path('app_register') }}" class="btn btn-lg btn-block btn-primary">
                 <i class="fas fa-lock"></i> Devenir <span class="text-warning">V.I.P</span>
             {% endif %}
             </a>
         </div>
     </div>
+    {% endif %}
+    {% if isVIP %}
+    <div class="text-center mb-4 border p-4 text-muted">
+        Vous êtes déjà V.I.P
+    </div>
+    {% endif %}
 {% endblock %}

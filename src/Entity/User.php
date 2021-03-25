@@ -49,11 +49,6 @@ class User implements UserInterface
     private $pseudo;
 
     /**
-     * @ORM\Column(type="boolean", options={"default": false})
-     */
-    private $isVIP;
-
-    /**
      * @ORM\OneToMany(targetEntity=Pronostic::class, mappedBy="user")
      */
     private $pronostics;
@@ -67,6 +62,16 @@ class User implements UserInterface
      * @ORM\Column(type="datetime")
      */
     private $createAt;
+
+    /**
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    private $startVip;
+
+    /**
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    private $endVip;
 
     public function __construct()
     {
@@ -179,18 +184,6 @@ class User implements UserInterface
         return $this;
     }
 
-    public function getIsVIP(): ?bool
-    {
-        return $this->isVIP;
-    }
-
-    public function setIsVIP(bool $isVIP): self
-    {
-        $this->isVIP = $isVIP;
-
-        return $this;
-    }
-
     /**
      * @return Collection|Pronostic[]
      */
@@ -259,6 +252,30 @@ class User implements UserInterface
     public function setCreateAt(\DateTimeInterface $createAt): self
     {
         $this->createAt = $createAt;
+
+        return $this;
+    }
+
+    public function getStartVip(): ?\DateTimeInterface
+    {
+        return $this->startVip;
+    }
+
+    public function setStartVip(\DateTimeInterface $startVip): self
+    {
+        $this->startVip = $startVip;
+
+        return $this;
+    }
+
+    public function getEndVip(): ?\DateTimeInterface
+    {
+        return $this->endVip;
+    }
+
+    public function setEndVip(\DateTimeInterface $endVip): self
+    {
+        $this->endVip = $endVip;
 
         return $this;
     }

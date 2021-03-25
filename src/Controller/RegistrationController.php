@@ -46,7 +46,6 @@ class RegistrationController extends AbstractController
                 );
 
             $user->setCreateAt(new DateTime('now'));
-            $user->setIsVIP(false);
 
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($user);
@@ -55,7 +54,7 @@ class RegistrationController extends AbstractController
             // generate a signed url and email it to the user
             $this->emailVerifier->sendEmailConfirmation('app_verify_email', $user,
                 (new TemplatedEmail())
-                    ->from(new Address('verification@bissonico.fr', 'BissoBot'))
+                    ->from(new Address('contact@bissonico.fr', 'BissoBot'))
                     ->to($user->getEmail())
                     ->subject('Veuillez confirmer votre email.')
                     ->htmlTemplate('registration/confirmation_email.html.twig')

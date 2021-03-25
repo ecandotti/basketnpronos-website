@@ -17,14 +17,14 @@
         <li class="nav-item">
             <a class="nav-link" href="{{ path('community') }}">Communauté</a>
         </li>
-        {% if app.user and app.user.isVIP %}
+        {% if (app.user and isVIP) or is_granted('ROLE_ADMIN') %}
             <li class="nav-item">
                 <a class="nav-link text-warning" href="{{ path('currentPronostic') }}">
                     <i class="fas fa-star"></i> Pronostiques <i class="fas fa-star"></i>
                 </a>
             </li>
         {% endif %}
-        {% if app.user and not app.user.isVIP and not is_granted('ROLE_ADMIN') %}
+        {% if app.user and not isVIP and not is_granted('ROLE_ADMIN') %}
             <li class="nav-item">
                 <a class="nav-link text-warning" href="{{ path('join_us') }}">
                     <i class="fas fa-medal"></i> Devenir V.I.P

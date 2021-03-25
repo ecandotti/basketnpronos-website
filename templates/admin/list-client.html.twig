@@ -32,10 +32,10 @@
                             {% endif %}
                         </td>
                         <td class="align-middle">
-                            {% if client.isVIP %}
+                            {% if date(client.endVip) > date() %}
                                 <span class="badge badge-pill badge-warning">VIP</span>
                             {% else %}
-                                <span class="badge badge-pill badge-info">simple</span>
+                                <span class="badge badge-pill badge-info">Simple</span>
                             {% endif %}
                         </td>
                         <td class="align-middle">{{ client.createAt|date('d/m/Y') }}</td>

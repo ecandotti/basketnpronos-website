@@ -5,8 +5,10 @@ namespace App\Controller;
 use App\Entity\Comment;
 use App\Entity\Gallery;
 use App\Entity\Pronostic;
+use App\Entity\User;
 use App\Form\CommentType;
 use App\Form\GalleryType;
+use App\Repository\UserRepository;
 use DateTime;
 use Doctrine\ORM\EntityManagerInterface;
 use Knp\Component\Pager\PaginatorInterface;
@@ -20,7 +22,7 @@ class MainController extends AbstractController
     /**
      * @Route("/", name="home")
      */
-    public function home(EntityManagerInterface $em): Response
+    public function home(EntityManagerInterface $em, UserRepository $userRepo): Response
     {
         /// >>> Récuperer le mois actuelle
         $currMonth = new DateTime('now');
@@ -72,19 +74,46 @@ class MainController extends AbstractController
         }
         /// <<< Récuperer nombre de paris gagné sur les 5 derniers
 
+        if ($this->getUser()) {
+            $isVIP = $userRepo->verifyVIP($this->getUser());
+        } else {
+            $isVIP = false;
+        }
+
         return $this->render('base.html.twig', [
             'month' => $months[$currMonth->format('m')],
             'result_fifth' => $result_fifth,
             'number_win' => $number_win,
-            'number_loose' => $number_loose
+            'number_loose' => $number_loose,
+            'isVIP' => $isVIP
         ]);
     }
 
     /**
-     * @Route("/notice", name="notice", methods={"GET", "POST"})
+     * @Route("/joinUs", name="join_us")
      */
-    public function notice(Request $request, EntityManagerInterface $em, PaginatorInterface $paginator): Response
+    public function joinUs(UserRepository $userRepo): Response
     {
+        if ($this->getUser()) {
+            $isVIP = $userRepo->verifyVIP($this->getUser());
+        } else {
+            $isVIP = false;
+        }
+
+        return $this->render('join-us.html.twig', [
+            'isVIP' => $isVIP
+        ]);
+    }
+
+    /**
+     * @Route("/community", name="community", methods={"GET", "POST"})
+     */
+    public function community(Request $request, EntityManagerInterface $em, PaginatorInterface $paginator, UserRepository $userRepo): Response
+    {
+        $gallery = $em->getRepository(Gallery::class)->findBy([
+            'status' => 'P'
+        ], [ 'createAt' => 'DESC' ]);
+
         $comment = new Comment();
         $form = $this->createForm(CommentType::class, $comment);
         $form->handleRequest($request);
@@ -109,35 +138,27 @@ class MainController extends AbstractController
             $doctrine->flush();
 
             $this->addFlash('success', 'Commentaire posté avec succès. Cependant le commentaire doit être approuvé par l’administrateur pour être visible');
-            return $this->redirectToRoute('notice');
+            return $this->redirectToRoute('community');
+        }
+        
+        if ($this->getUser()) {
+            $isVIP = $userRepo->verifyVIP($this->getUser());
+        } else {
+            $isVIP = false;
         }
 
-        return $this->render('notice.html.twig', [
+        return $this->render('community.html.twig', [
             'form' => $form->createView(),
-            'comments' => $comments
+            'comments' => $comments,
+            'gallery' => $gallery,
+            'isVIP' => $isVIP
         ]);
-    }
-
-    /**
-     * @Route("/joinUs", name="join_us")
-     */
-    public function joinUs(): Response
-    {
-        return $this->render('join-us.html.twig');
-    }
-
-    /**
-     * @Route("/community", name="community")
-     */
-    public function community(EntityManagerInterface $em): Response
-    {
-        return $this->render('community.html.twig');
     }
 
     /**
      * @Route("/history", name="history")
      */
-    public function history(Request $request, PaginatorInterface $paginator): Response
+    public function history(Request $request, PaginatorInterface $paginator, UserRepository $userRepo): Response
     {
         $currentDate = new DateTime();
 
@@ -155,8 +176,15 @@ class MainController extends AbstractController
             5 // Nombre de résultats par page
         );
 
+        if ($this->getUser()) {
+            $isVIP = $userRepo->verifyVIP($this->getUser());
+        } else {
+            $isVIP = false;
+        }
+
         return $this->render('history.html.twig', [
-            'pronostiques' => $pronostiques
+            'pronostiques' => $pronostiques,
+            'isVIP' => $isVIP
         ]);
     }
 }

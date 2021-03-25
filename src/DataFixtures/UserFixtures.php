@@ -27,7 +27,6 @@ class UserFixtures extends Fixture
             ->setPseudo('ADMIN')
             ->setPassword($this->encoder->encodePassword($user, 'password'))
             ->setIsVerified(true)
-            ->setIsVIP(true)
             ->setCreateAt(new DateTime('now'))
             ->setRoles(['ROLE_ADMIN'])
         ;

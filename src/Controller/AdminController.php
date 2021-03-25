@@ -33,6 +33,7 @@ class AdminController extends AbstractController
 
         return $this->render('admin/dashboard.html.twig', [
             'latest_pronostic' => $latest_prono,
+            'isVIP' => true
         ]);
     }
 
@@ -52,7 +53,8 @@ class AdminController extends AbstractController
         );
 
         return $this->render('admin/manage-prono.html.twig', [
-            'pronostiques' => $pronostiques
+            'pronostiques' => $pronostiques,
+            'isVIP' => true
         ]);
     }
 
@@ -73,6 +75,7 @@ class AdminController extends AbstractController
 
         return $this->render('admin/manage-gallery.html.twig', [
             'gallery' => $gallery,
+            'isVIP' => true
         ]);
     }
 
@@ -93,6 +96,7 @@ class AdminController extends AbstractController
 
         return $this->render('admin/manage-comments.html.twig', [
             'comments' => $comments,
+            'isVIP' => true
         ]);
     }
 
@@ -140,7 +144,8 @@ class AdminController extends AbstractController
         );
 
         return $this->render('admin/performance.html.twig', [
-            'pronostiques' => $pronostiques
+            'pronostiques' => $pronostiques,
+            'isVIP' => true
         ]);
     }
 
@@ -160,7 +165,8 @@ class AdminController extends AbstractController
         );
 
         return $this->render('admin/list-client.html.twig', [
-            'clients' => $clients
+            'clients' => $clients,
+            'isVIP' => true
         ]);
     }
 
@@ -186,7 +192,8 @@ class AdminController extends AbstractController
 
         return $this->render('admin/add-gallery.html.twig', [
             'form' => $form->createView(),
-            'gallery' => $gallery
+            'gallery' => $gallery,
+            'isVIP' => true
         ]);
     }
 }
