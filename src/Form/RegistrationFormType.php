@@ -10,6 +10,8 @@ use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Validator\Constraints\Length;
+use Symfony\Component\Validator\Constraints\NotBlank;
 
 class RegistrationFormType extends AbstractType
 {
@@ -31,8 +33,28 @@ class RegistrationFormType extends AbstractType
                 'invalid_message' => 'Les mots de passes doivent correspondre.',
                 'options' => ['attr' => ['class' => 'password-field']],
                 'required' => true,
-                'first_options'  => ['label' => 'Mot de passe', 'attr' => ['class' => 'form-control my-2']],
-                'second_options' => ['label' => 'Confirmer votre mot de passe', 'attr' => ['class' => 'form-control my-2']],
+                'first_options' => [
+                    'label' => 'Mot de passe', 
+                    'attr' => ['class' => 'form-control my-2'],
+                    'constraints' => [
+                        new NotBlank([
+                            'message' => 'Veuillez entrer un mot de passe',
+                        ]),
+                        new Length([
+                            'min' => 6,
+                            'minMessage' => 'Votre mot de passe doit être au moins {{ limit }} lettres.',
+                            // max length allowed by Symfony for security reasons
+                            'max' => 20,
+                        ]),
+                    ],
+                ],
+                'second_options' => [
+                    'label' => 'Confirmer votre mot de passe', 
+                    'attr' => ['class' => 'form-control my-2'],
+                ],
+                // Instead of being set onto the object directly,
+                // this is read and encoded in the controller
+                'mapped' => false,
             ])
         ;
     }

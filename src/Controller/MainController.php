@@ -24,23 +24,6 @@ class MainController extends AbstractController
      */
     public function home(EntityManagerInterface $em, UserRepository $userRepo): Response
     {
-        /// >>> Récuperer le mois actuelle
-        $currMonth = new DateTime('now');
-        $months = [ '03' => 'Janvier',
-                    '02' => 'Fevrier',
-                    '03' => 'Mars',
-                    '04' => 'Avril',
-                    '05' => 'Mai',
-                    '06' => 'Juin',
-                    '07' => 'Juillet',
-                    '08' => 'Août',
-                    '09' => 'Septembre',
-                    '10' => 'Octobre',
-                    '11' => 'Novembre',
-                    '12' => 'Décembre'
-        ];
-        /// <<< Récuperer le mois actuelle
-
         /// >>> Récuperer le nombre de paris gagnés / perdu
         $number_win = count($em->getRepository(Pronostic::class)->findBy([
             'result' => 'G'
@@ -81,7 +64,6 @@ class MainController extends AbstractController
         }
 
         return $this->render('base.html.twig', [
-            'month' => $months[$currMonth->format('m')],
             'result_fifth' => $result_fifth,
             'number_win' => $number_win,
             'number_loose' => $number_loose,
