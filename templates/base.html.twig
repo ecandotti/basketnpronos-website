@@ -21,6 +21,18 @@
     <body>
         {% include "navbar.html.twig" %}
         <div class="container mt-4">
+        {% if app.user and not app.user.isVerified %}
+            <div class="alert alert-dismissible alert-danger text-center">
+                <button type="button" class="close" data-dismiss="alert" tabindex="0">&times;</button>
+                Vous devez valider votre adresse mail ! (Si vous ne trouvez pas, vérifier les spams).
+            </div>
+        {% endif %}
+        {% for messages in app.flashes('success') %}
+            <div class="alert alert-dismissible alert-success text-center">
+                <button type="button" class="close" data-dismiss="alert" tabindex="0">&times;</button>
+                {{ messages }}
+            </div>
+        {% endfor %}
         {% for messages in app.flashes('VIP') %}
             <div class="alert alert-dismissible alert-warning text-center">
                 <button type="button" class="close" data-dismiss="alert" tabindex="0">&times;</button>
@@ -48,7 +60,7 @@
                     détails.
                 </p>
                 <div class="my-3"></div>
-                <h5 class="mb-4">
+                <h5 class="my-4">
                     Alors n'attends plus, <a href="{{ path('join_us') }}" class="btn btn-outline-warning text-decoration-none">Nous rejoindre</a>
                 </h5>
             </div>

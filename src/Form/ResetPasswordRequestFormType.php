@@ -2,6 +2,7 @@
 
 namespace App\Form;
 
+use Gregwar\CaptchaBundle\Type\CaptchaType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -14,11 +15,17 @@ class ResetPasswordRequestFormType extends AbstractType
     {
         $builder
             ->add('email', EmailType::class, [
+                'label' => 'Votre adresse mail',
+                'attr' => ['class' => 'form-control'],
                 'constraints' => [
                     new NotBlank([
-                        'message' => 'Please enter your email',
+                        'message' => 'Veuillez entrer votre email',
                     ]),
                 ],
+            ])
+            ->add('captcha', CaptchaType::class, [
+                'label' => 'Captacha*',
+                'attr' => ['class' => 'ml-2']
             ])
         ;
     }
