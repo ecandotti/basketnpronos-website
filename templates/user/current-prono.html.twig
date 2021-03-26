@@ -1,9 +1,9 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Pronostiques du jour | BasketNPronos{% endblock %}
+{% block title %}Pronostics du jour | BasketNPronos{% endblock %}
 
 {% block body %}
-    <h3 class="text-center my-2 text-warning "><i class="fas fa-star"></i> Pronostiques du jour <i class="fas fa-star"></i></h3>
+    <h3 class="text-center my-2 text-warning "><i class="fas fa-star"></i> Pronostics du jour <i class="fas fa-star"></i></h3>
 
     <section>
         {% if app.user and not is_granted('ROLE_ADMIN') %}
@@ -33,7 +33,7 @@
         {% endfor %}
         {% if not currentProno %}
             <div class="text-center my-4 border p-4 text-muted">
-                Les pronostiques du jour ne sont pas encore sorties !
+                Les pronostics du jour ne sont pas encore sortis !
             </div>
         {% endif %}
     </section>

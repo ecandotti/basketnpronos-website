@@ -52,22 +52,22 @@ class MainController extends AbstractController
         /// <<< Récuperer le nombre de paris gagnés / perdu
 
         /// >>> Récuperer nombre de paris gagné sur les 5 derniers
-        $fifthPronostiques = $em->getRepository(Pronostic::class)->findBy([
+        $fifthPronostics = $em->getRepository(Pronostic::class)->findBy([
             'category' => 'F'
         ],['createDate' => 'DESC'], 7);
         $result_fifth = 0;
 
-        for ($i=0; $i < count($fifthPronostiques); $i++) { 
-            if ($fifthPronostiques[$i]->getResult() === 'ND') {
-                unset($fifthPronostiques[$i]);
+        for ($i=0; $i < count($fifthPronostics); $i++) { 
+            if ($fifthPronostics[$i]->getResult() === 'ND') {
+                unset($fifthPronostics[$i]);
             }
         }
 
-        while(count($fifthPronostiques) > 5) { 
-            array_pop($fifthPronostiques);
+        while(count($fifthPronostics) > 5) { 
+            array_pop($fifthPronostics);
         }
 
-        foreach ($fifthPronostiques as $key => $value) {
+        foreach ($fifthPronostics as $key => $value) {
             if ($value->getResult() === 'G') {
                 $result_fifth++;
             }
@@ -168,16 +168,16 @@ class MainController extends AbstractController
     {
         $currentDate = new DateTime();
 
-        $pronostiques = $this->getDoctrine()->getRepository(Pronostic::class)->findBy([]);
+        $pronostics = $this->getDoctrine()->getRepository(Pronostic::class)->findBy([]);
 
-        foreach ($pronostiques as $key => $value){
+        foreach ($pronostics as $key => $value){
             if ($value->getCreateAt() == $currentDate->format('d-m-Y')) {
                 unset($pronostiques[$key]);
             }
         }
 
-        $pronostiques = $paginator->paginate(
-            $pronostiques, // Requête contenant les données à paginer
+        $pronostics = $paginator->paginate(
+            $pronostics, // Requête contenant les données à paginer
             $request->query->getInt('page', 1), // Numéro de la page en cours, passé dans l'URL, 1 si aucune page
             5 // Nombre de résultats par page
         );
@@ -189,7 +189,7 @@ class MainController extends AbstractController
         }
 
         return $this->render('history.html.twig', [
-            'pronostiques' => $pronostiques,
+            'pronostics' => $pronostics,
             'isVIP' => $isVIP
         ]);
     }

@@ -3,11 +3,11 @@
 {% block title %}Pronostique Manager | BasketNPronos{% endblock %}
 
 {% block body %}
-    <h2 class="text-center mb-4">Gérer mes pronostiques</h2>
+    <h2 class="text-center mb-4">Gérer mes pronostics</h2>
 
     {% include "admin/_menu.html.twig" %}
 
-    {% if pronostiques is not empty %}
+    {% if pronostics is not empty %}
         <table class="table table-striped">
             <thead>
                 <tr>
@@ -19,7 +19,7 @@
                 </tr>
             </thead>
             <tbody>
-                {% for pronostic in pronostiques %}
+                {% for pronostic in pronostics %}
                     <tr>
                         <th scope="row" class="align-middle">{{ pronostic.title }}</th>
                         <th scope="row" class="align-middle">
@@ -54,7 +54,7 @@
             </tbody>
         </table>
         <div class="text-center d-flex justify-content-center">
-            {{ knp_pagination_render(pronostiques) }}
+            {{ knp_pagination_render(pronostics) }}
         </div>
     {% else %}
         <div class="text-center my-4 border p-4 text-muted">

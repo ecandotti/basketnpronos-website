@@ -42,18 +42,18 @@ class AdminController extends AbstractController
      */
     public function adminManagePronostic(Request $request, PaginatorInterface $paginator): Response
     {
-        $pronostiques = $this->getDoctrine()->getRepository(Pronostic::class)->findBy([],[
+        $pronostics = $this->getDoctrine()->getRepository(Pronostic::class)->findBy([],[
             'createDate' => 'DESC'
         ]);
 
-        $pronostiques = $paginator->paginate(
-            $pronostiques, // Requête contenant les données à paginer
+        $pronostics = $paginator->paginate(
+            $pronostics, // Requête contenant les données à paginer
             $request->query->getInt('page', 1), // Numéro de la page en cours, passé dans l'URL, 1 si aucune page
             10 // Nombre de résultats par page
         );
 
         return $this->render('admin/manage-prono.html.twig', [
-            'pronostiques' => $pronostiques,
+            'pronostics' => $pronostics,
             'isVIP' => true
         ]);
     }
@@ -126,27 +126,6 @@ class AdminController extends AbstractController
             return $this->redirectToRoute('admin_manage_comment');
         }
         return $this->redirectToRoute('admin_manage_comment');
-    }
-
-    /**
-     * @Route("/performance", name="admin_performance")
-     */
-    public function adminPerformance(Request $request, PaginatorInterface $paginator): Response
-    {
-        $pronostiques = $this->getDoctrine()->getRepository(Pronostic::class)->findBy([],[
-            'createDate' => 'DESC'
-        ]);
-
-        $pronostiques = $paginator->paginate(
-            $pronostiques, // Requête contenant les données à paginer
-            $request->query->getInt('page', 1), // Numéro de la page en cours, passé dans l'URL, 1 si aucune page
-            5 // Nombre de résultats par page
-        );
-
-        return $this->render('admin/performance.html.twig', [
-            'pronostiques' => $pronostiques,
-            'isVIP' => true
-        ]);
     }
 
     /**

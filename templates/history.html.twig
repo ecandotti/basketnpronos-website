@@ -4,19 +4,19 @@
 
 {% block body %}
     <h2 class="text-center my-4">Historique</h2>
-    {% for pronostique in pronostiques %}
+    {% for pronostic in pronostics %}
         <div class="card mb-3">
             <div class="card-body">
-                <h2 class="card-title">{{ pronostique.title }}</h2>
-                {{ pronostique.content|raw }}
+                <h2 class="card-title">{{ pronostic.title }}</h2>
+                {{ pronostic.content|raw }}
             </div>
             <ul class="list-group list-group-flush">
                 <li class="list-group-item">Catégorie : 
                     <span class="badge badge-info">
-                        {% if pronostique.category == "F" %}
+                        {% if pronostic.category == "F" %}
                             Fiable
                         {% endif %}
-                        {% if pronostique.category == "NF" %}
+                        {% if pronostic.category == "NF" %}
                            Fun
                         {% endif %}
                     </span>
@@ -24,28 +24,28 @@
                 <li class="list-group-item">
                     Resultat : 
                     <span class="mb-1 text-secondary">
-                        {% if pronostique.result == "ND" %}
+                        {% if pronostic.result == "ND" %}
                             <span class="badge badge-warning">Non définie</span>
                         {% endif %}
-                        {% if pronostique.result == "G" %}
+                        {% if pronostic.result == "G" %}
                             <span class="badge badge-success">Gagné</span>
                         {% endif %}
-                        {% if pronostique.result == "P" %}
+                        {% if pronostic.result == "P" %}
                             <span class="badge badge-danger">Perdu</span>
                         {% endif %}
                     </span>
                 </li>
             </ul>
             <div class="card-footer text-muted">
-                Le {{ pronostique.createAt }} par <b>{{ pronostique.user.pseudo}}</b>.
+                Le {{ pronostic.createAt }} par <b>{{ pronostic.user.pseudo}}</b>.
             </div>
         </div>
     {% else %}
     <div class="text-center my-4 border p-4 text-muted">
-        Aucun pronostique disponible
+        Aucun pronostic disponible
     </div>
     {% endfor %}
     <div class="text-center d-flex justify-content-center">
-        {{ knp_pagination_render(pronostiques) }}
+        {{ knp_pagination_render(pronostics) }}
     </div>
 {% endblock %}

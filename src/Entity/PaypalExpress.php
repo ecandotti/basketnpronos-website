@@ -13,8 +13,8 @@ class PaypalExpress
     public $paypalEnv = "live";
     public $paypalURLToken = "https://api-m.paypal.com/v1/";
     public $paypalURL = "https://api-m.paypal.com/v2/";
-    public $paypalClientID = "Ac9RS3gBkSzsmcBEZkb6D3fH4lIakqjLMQzPpsiSBWVGmEbVKc-8QOnO2m8M4V-uuRlX_oP9fZowrYTe";
-    private $paypalSecret = "ELcAWXCvbLSj8czUbDYGj7WKMDk2evIiHuVZCclRYPhrbYMh9noGjYsMzVXHSl3IkelAUn5Ztkwi4QUb";
+    public $paypalClientID = "AYaBzHavlRGQ54FCfuRvgpgcFI43V8oBsMQNi9W8WK9YD_2F87QdJofs-tt3zvMg6hF53POUk-oWlA1u";
+    private $paypalSecret = "EHmRvz4gwI7O51Y_XHkZa4yfKiphEtYPi3NdKP5wthp0P9bAEX0x8yQ7b8JUCaFp4qq-CG8Mi_vyp962";
 
     /**
      * @ORM\Id
