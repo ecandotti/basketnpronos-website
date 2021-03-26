@@ -125,7 +125,7 @@ class MainController extends AbstractController
         $comments = $paginator->paginate(
             $comments, // Requête contenant les données à paginer
             $request->query->getInt('page', 1), // Numéro de la page en cours, passé dans l'URL, 1 si aucune page
-            10 // Nombre de résultats par page
+            5 // Nombre de résultats par page
         );
             
         if ($form->isSubmitted() && $form->isValid()) {
@@ -146,6 +146,12 @@ class MainController extends AbstractController
         } else {
             $isVIP = false;
         }
+
+        $gallery = $paginator->paginate(
+            $gallery, // Requête contenant les données à paginer
+            $request->query->getInt('page', 1), // Numéro de la page en cours, passé dans l'URL, 1 si aucune page
+            5 // Nombre de résultats par page
+        );
 
         return $this->render('community.html.twig', [
             'form' => $form->createView(),

@@ -86,8 +86,8 @@ class PaypalExpressRepository extends ServiceEntityRepository
 
         $application_context = new stdClass();
         $application_context->brand_name = "BasketNPronos";
-        $application_context->return_url = "https://localhost:8000/paypal/capture";
-        $application_context->cancel_url = "https://localhost:8000/";
+        $application_context->return_url = "https://www.basketnpronos.fr/paypal/capture";
+        $application_context->cancel_url = "https://www.basketnpronos.fr/";
 
         $data->intent = "CAPTURE";
         $data->purchase_units = array($purshase_units);

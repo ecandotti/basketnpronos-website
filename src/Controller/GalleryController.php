@@ -64,7 +64,7 @@ class GalleryController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $this->getDoctrine()->getManager()->flush();
 
-            return $this->redirectToRoute('gallery_index');
+            return $this->redirectToRoute('community');
         }
 
         return $this->render('gallery/edit.html.twig', [

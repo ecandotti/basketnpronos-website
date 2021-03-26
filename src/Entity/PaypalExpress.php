@@ -10,9 +10,9 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class PaypalExpress
 {
-    public $paypalEnv = "sandbox";
-    public $paypalURLToken = "https://api-m.sandbox.paypal.com/v1/";
-    public $paypalURL = "https://api-m.sandbox.paypal.com/v2/";
+    public $paypalEnv = "live";
+    public $paypalURLToken = "https://api-m.paypal.com/v1/";
+    public $paypalURL = "https://api-m.paypal.com/v2/";
     public $paypalClientID = "Ac9RS3gBkSzsmcBEZkb6D3fH4lIakqjLMQzPpsiSBWVGmEbVKc-8QOnO2m8M4V-uuRlX_oP9fZowrYTe";
     private $paypalSecret = "ELcAWXCvbLSj8czUbDYGj7WKMDk2evIiHuVZCclRYPhrbYMh9noGjYsMzVXHSl3IkelAUn5Ztkwi4QUb";
 
