@@ -166,7 +166,7 @@ class AdminController extends AbstractController
             $doctrine->flush();
 
             $this->addFlash('success', 'Contenue ajouté dans la galerie !');
-            return $this->redirectToRoute('admin_dashboard');
+            return $this->redirectToRoute('admin_manage_gallery');
         }
 
         return $this->render('admin/add-gallery.html.twig', [

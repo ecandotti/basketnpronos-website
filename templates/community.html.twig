@@ -11,63 +11,51 @@
     {% endfor %}
 
     <h2 class="text-center my-4">Communauté</h2>
-    {% if not is_granted('ROLE_ADMIN') %}
-        <div class="my-4">
-            <h3>Rédiger un avis :</h3>
-            {% if app.user and isVIP %}
-                <div class="text-center">
-                    {{ form_start(form) }}
-                        {{ form_row(form.content) }}
-                        <div class="d-flex flex-row justify-content-between mt-4">
-                            {{ form_row(form.captcha) }}
-                            {{ form_row(form._token) }}
-                            {{ form_row(form.poster) }}
-                        </div>
-                    {{ form_start(form) }}
-                </div>
-            {% endif %}
-            {% if app.user and not isVIP %}
-                <div class="border p-4 text-center">
-                    Vous devez être <span class="text-warning">VIP</span> pour pouvoir rédiger un avis.<br>
-                    <div class="d-flex my-2 justify-content-center">
-                        <a class="btn btn-primary mt-2 mr-2" href="{{ path("join_us") }}">
-                            Devenir <span class="text-warning">VIP</span>
-                        </a>
-                    </div>
-                </div>
-            {% endif %}
-            {% if not app.user %}
-                <div class="border p-4 text-center">
-                    Vous devez être connecté et <span class="text-warning">VIP</span> pour pouvoir rédiger un avis.<br>
-                    <div class="d-flex my-2 justify-content-center">
-                        <a class="btn btn-secondary border mt-2 mr-2" href="{{ path("app_login") }}">Connexion</a>
-                        <a class="btn btn-primary mt-2 mr-2" href="{{ path("join_us") }}">Nous rejoindre</a>
-                    </div>
-                </div>
-            {% endif %}
+    <div class="d-flex flex-md-row flex-column align-items-center justify-content-between">
+        <div class="text-center">
+            <h4>Retrouver nos plus beaux tickets sur</h4>
+            <a class="text-decoration-none" href="https://www.instagram.com/basketnpronos">
+                <img src="https://lusineagaz.net/wp-content/uploads/2017/09/o-insta.jpg" class="img-fluid my-2" target="_blank" rel="noopener" width="200" height="100"/>
+            </a>
         </div>
-    {% endif %}
-    <div class="row">
-        <div class="col-md">
-            <h4 class="text-center mb-4">Galerie</h4>
-            {% if gallery is not empty %}
-                {% for post in gallery %}    
-                    <div class="mb-2">
-                        <div class="list-group-item flex-column align-items-start">
-                            <div class="d-flex w-100 justify-content-between">
-                                <h4 class="mb-1">{{ post.title }}</h4>
-                                <span class="text-muted img-fluid">{{ post.createAt|date('d-m-Y H:i:s') }}</span>
+        {% if not is_granted('ROLE_ADMIN') %}
+            <div class="my-4">
+                <h4>Rédiger un avis :</h4>
+                {% if app.user and isVIP %}
+                    <div class="text-center">
+                        {{ form_start(form) }}
+                            {{ form_row(form.content) }}
+                            <div class="d-flex flex-row justify-content-between mt-4">
+                                {{ form_row(form.captcha) }}
+                                {{ form_row(form._token) }}
+                                {{ form_row(form.poster) }}
                             </div>
-                            <div class="my-2 text-secondary">{{ post.content|raw }}</div>
+                        {{ form_start(form) }}
+                    </div>
+                {% endif %}
+                {% if app.user and not isVIP %}
+                    <div class="border p-4 text-center">
+                        Vous devez être <span class="text-warning">VIP</span> pour pouvoir rédiger un avis.<br>
+                        <div class="d-flex my-2 justify-content-center">
+                            <a class="btn btn-primary mt-2 mr-2" href="{{ path("join_us") }}">
+                                Devenir <span class="text-warning">VIP</span>
+                            </a>
                         </div>
                     </div>
-                {% endfor %}
-            {% else %}
-                <div class="text-center my-4 border p-4 text-muted">
-                    Aucune image disponible
-                </div>
-            {% endif %}
-        </div>
+                {% endif %}
+                {% if not app.user %}
+                    <div class="border p-4 text-center">
+                        Vous devez être connecté et <span class="text-warning">VIP</span> pour pouvoir rédiger un avis.<br>
+                        <div class="d-flex my-2 justify-content-center">
+                            <a class="btn btn-secondary border mt-2 mr-2" href="{{ path("app_login") }}">Connexion</a>
+                            <a class="btn btn-primary mt-2 mr-2" href="{{ path("join_us") }}">Nous rejoindre</a>
+                        </div>
+                    </div>
+                {% endif %}
+            </div>
+        {% endif %}
+    </div>
+    <div class="row">
         <div class="col-md">
             <h4 class="text-center mb-4">Avis</h4>
             {% if comments is not empty %}

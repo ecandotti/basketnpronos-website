@@ -35,26 +35,26 @@ class MainController extends AbstractController
         /// <<< Récuperer le nombre de paris gagnés / perdu
 
         /// >>> Récuperer nombre de paris gagné sur les 5 derniers
-        $fifthPronostics = $em->getRepository(Pronostic::class)->findBy([
-            'category' => 'F'
-        ],['createDate' => 'DESC'], 7);
-        $result_fifth = 0;
+        // $fifthPronostics = $em->getRepository(Pronostic::class)->findBy([
+        //     'category' => 'F'
+        // ],['createDate' => 'DESC'], 7);
+        // $result_fifth = 0;
 
-        for ($i=0; $i < count($fifthPronostics); $i++) { 
-            if ($fifthPronostics[$i]->getResult() === 'ND') {
-                unset($fifthPronostics[$i]);
-            }
-        }
+        // for ($i=0; $i < count($fifthPronostics); $i++) { 
+        //     if ($fifthPronostics[$i]->getResult() == 'ND') {
+        //         unset($fifthPronostics[$i]);
+        //     }
+        // }
 
-        while(count($fifthPronostics) > 5) { 
-            array_pop($fifthPronostics);
-        }
+        // while(count($fifthPronostics) > 5) { 
+        //     array_pop($fifthPronostics);
+        // }
 
-        foreach ($fifthPronostics as $key => $value) {
-            if ($value->getResult() === 'G') {
-                $result_fifth++;
-            }
-        }
+        // foreach ($fifthPronostics as $key => $value) {
+        //     if ($value->getResult() === 'G') {
+        //         $result_fifth++;
+        //     }
+        // }
         /// <<< Récuperer nombre de paris gagné sur les 5 derniers
 
         if ($this->getUser()) {
@@ -64,7 +64,7 @@ class MainController extends AbstractController
         }
 
         return $this->render('base.html.twig', [
-            'result_fifth' => $result_fifth,
+            // 'result_fifth' => $result_fifth,
             'number_win' => $number_win,
             'number_loose' => $number_loose,
             'isVIP' => $isVIP

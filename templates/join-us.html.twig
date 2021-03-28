@@ -13,28 +13,6 @@
 
     {% if not isVIP %}
     <div class="card-deck mb-5 text-center">
-        <!-- 3 MOIS -->
-        <div class="card-body">
-            <div class="card-header">
-                <h4 class="my-0 font-weight-normal">3 Mois</h4>
-            </div>
-            <h1 class="card-title pricing-card-title mt-3">21.99€</h1>
-            <h5 class="card-title pricing-card-title"><small class="text-muted">Soit 7.33€/ mois</small></h5>
-            <div class="d-flex flex-column mt-3 mb-4">
-                <h6 class="my-3">Accès aux <span class="text-warning">pronostics</span></h6>
-                <h6 class="mb-3"><i class="fas fa-coins"></i> Conseil de <span class="text-success">mise</span></h6>
-                <h6 class="mb-3">Reduction de <span class="text-info">-5€</span></h6>
-                <span class="text-muted mt-3"><i class="fas fa-shield-alt"></i> Paiement sécurisé via Paypal</span>
-            </div>
-            {% if app.user and not isVIP %}
-            <a href="{{ path('checkout_paypal', { priceId: 1 }) }}" class="btn btn-lg btn-block btn-primary">
-                <span class="text-center my-4"><i class="fas fa-lock"></i> Rejoindre le <span class="text-warning">groupe</span></span>
-            {% else %}
-             <a href="{{ path('app_register') }}" class="btn btn-lg btn-block btn-primary">
-                <i class="fas fa-lock"></i> Devenir <span class="text-warning">V.I.P</span>
-            {% endif %}
-            </a>
-        </div>
         <!-- 1 MOIS -->
         <div class="card-body">
             <div class="card-header">
@@ -46,10 +24,36 @@
                 <h6 class="my-3">Accès aux <span class="text-warning">pronostics</span></h6>
                 <h6 class="mb-3"><i class="fas fa-coins"></i> Conseil de <span class="text-success">mise</span></h6>
                 <h6 class="mb-3">&nbsp;</h6>
+                <h6 class="mb-3">&nbsp;</h6>
+                <h6 class="mb-3">&nbsp;</h6>
                 <span class="text-muted mt-3"><i class="fas fa-shield-alt"></i> Paiement sécurisé via Paypal</span>
             </div>
             {% if app.user and not isVIP %}
             <a href="{{ path('checkout_paypal', { priceId: 2}) }}" class="btn btn-lg btn-block btn-primary">
+                <span class="text-center my-4"><i class="fas fa-lock"></i> Rejoindre le <span class="text-warning">groupe</span></span>
+            {% else %}
+             <a href="{{ path('app_register') }}" class="btn btn-lg btn-block btn-primary">
+                <i class="fas fa-lock"></i> Devenir <span class="text-warning">V.I.P</span>
+            {% endif %}
+            </a>
+        </div>
+        <!-- 3 MOIS -->
+        <div class="card-body">
+            <div class="card-header">
+                <h4 class="my-0 font-weight-normal">3 Mois</h4>
+            </div>
+            <h1 class="card-title pricing-card-title mt-3">21.99€</h1>
+            <h5 class="card-title pricing-card-title"><small class="text-muted">Soit 7.33€/ mois</small></h5>
+            <div class="d-flex flex-column mt-3 mb-4">
+                <h6 class="my-3">Accès aux <span class="text-warning">pronostics</span></h6>
+                <h6 class="mb-3"><i class="fas fa-coins"></i> Conseil de <span class="text-success">mise</span></h6>
+                <h6 class="mb-3">Reduction de <span class="text-info">-5€</span></h6>
+                <h6 class="mb-3">&nbsp;</h6>
+                <h6 class="mb-3">&nbsp;</h6>
+                <span class="text-muted mt-3"><i class="fas fa-shield-alt"></i> Paiement sécurisé via Paypal</span>
+            </div>
+            {% if app.user and not isVIP %}
+            <a href="{{ path('checkout_paypal', { priceId: 1 }) }}" class="btn btn-lg btn-block btn-primary">
                 <span class="text-center my-4"><i class="fas fa-lock"></i> Rejoindre le <span class="text-warning">groupe</span></span>
             {% else %}
              <a href="{{ path('app_register') }}" class="btn btn-lg btn-block btn-primary">
@@ -67,6 +71,8 @@
             <div class="d-flex flex-column mt-3 mb-4">
                 <h6 class="my-3">Accès aux <span class="text-warning">pronostics</span></h6>
                 <h6 class="mb-3"><i class="fas fa-coins"></i> Conseil de <span class="text-success">mise</span></h6>
+                <h6 class="mb-3"><i class="fas fa-key"></i> Accès snap <span class="text-danger">VIP</span></span></h6>
+                <h6 class="mb-3">Info de valeur sur de dernières minutes <i class="fas fa-money-bill-alt"></i></h6>
                 <h6 class="mb-3">Reduction de <span class="text-info">-37.89€</span></h6>
                 <span class="text-muted mt-3"><i class="fas fa-shield-alt"></i> Paiement sécurisé via Paypal</span>
             </div>

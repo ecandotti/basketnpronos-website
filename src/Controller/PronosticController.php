@@ -64,7 +64,7 @@ class PronosticController extends AbstractController
             $this->getDoctrine()->getManager()->flush();
 
             $this->addFlash('success', 'Pronostique édité avec succès !');
-            return $this->redirectToRoute('admin_dashboard');
+            return $this->redirectToRoute('admin_manage_pronostic');
         }
 
         return $this->render('pronostic/edit.html.twig', [

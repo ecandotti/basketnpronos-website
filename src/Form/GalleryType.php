@@ -23,7 +23,7 @@ class GalleryType extends AbstractType
             ])
             ->add('content', CKEditorType::class, [
                 'required' => true,
-                'label' => ' '
+                'label' => 'Contenu :'
             ])
             ->add('status', ChoiceType::class, [
                 'required' => true,

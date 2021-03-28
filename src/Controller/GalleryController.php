@@ -17,31 +17,6 @@ use Symfony\Component\Routing\Annotation\Route;
 class GalleryController extends AbstractController
 {
     /**
-     * @IsGranted("ROLE_ADMIN")
-     * @Route("/new", name="gallery_new", methods={"GET","POST"})
-     */
-    public function new(Request $request): Response
-    {
-        $gallery = new Gallery();
-        $form = $this->createForm(GalleryType::class, $gallery);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->persist($gallery);
-            $entityManager->flush();
-
-            return $this->redirectToRoute('home');
-        }
-
-        return $this->render('gallery/new.html.twig', [
-            'gallery' => $gallery,
-            'form' => $form->createView(),
-            'isVIP' => true
-        ]);
-    }
-
-    /**
      * @Route("/{id}", name="gallery_show", methods={"GET"})
      */
     public function show(Gallery $gallery): Response
@@ -64,7 +39,8 @@ class GalleryController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $this->getDoctrine()->getManager()->flush();
 
-            return $this->redirectToRoute('community');
+            $this->addFlash('success', 'Post édité avec succès');
+            return $this->redirectToRoute('admin_manage_gallery');
         }
 
         return $this->render('gallery/edit.html.twig', [
@@ -86,6 +62,7 @@ class GalleryController extends AbstractController
             $entityManager->flush();
         }
 
-        return $this->redirectToRoute('home');
+        $this->addFlash('success', 'Post supprimé avec succès');
+        return $this->redirectToRoute('admin_manage_gallery');
     }
 }

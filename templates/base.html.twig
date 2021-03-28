@@ -59,22 +59,20 @@
                     Ici, tu trouveras les pronostics les plus fiables, analysés, décryptés dans les moindres
                     détails.
                 </p>
-                <div class="my-3"></div>
-                <h5 class="my-4">
-                    Alors n'attends plus, <a href="{{ path('join_us') }}" class="btn btn-outline-warning text-decoration-none">Nous rejoindre</a>
-                </h5>
+                <p class="my-2 lead">ALORS N'ATTENDS PLUS</p>
+                <a href="{{ path('join_us') }}" class="btn btn-outline-warning text-decoration-none mb-2">Nous rejoindre</a>
             </div>
             <div class="row">
                 <div id="carouselExampleSlidesOnly" class="carousel slide" data-bs-ride="carousel">
                     <div class="carousel-inner">
                         <div class="carousel-item active">
-                            <img src="https://images.unsplash.com/photo-1499754162586-08f451261482?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&auto=format&fit=crop&w=1650&q=80" class="d-block w-100" alt="okok">
+                            <img src="https://images.unsplash.com/photo-1499754162586-08f451261482?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&auto=format&fit=crop&w=1650&q=80" class="d-block w-100" alt="">
                         </div>
                         <div class="carousel-item">
-                            <img src="." class="d-block w-100" alt="kkoo">
+                            <img src="" class="d-block w-100" alt="kkoo">
                         </div>
                         <div class="carousel-item">
-                            <img src="https://images.unsplash.com/photo-1499754162586-08f451261482?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&auto=format&fit=crop&w=1650&q=80" class="d-block w-100" alt="koko">
+                            <img src="https://images.unsplash.com/photo-1499754162586-08f451261482?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&auto=format&fit=crop&w=1650&q=80" class="d-block w-100" alt="">
                         </div>
                     </div>
                 </div>
@@ -117,10 +115,10 @@
                         <img class="img-fluid" alt="basketball-dunk" src="https://images.unsplash.com/photo-1581390561753-e6d41f31b10a?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&auto=format&fit=crop&w=934&q=80">
                     </div>
                     <div class="col-sm d-flex flex-column align-items-center justify-content-center text-center pt-5">
-                        <div class="mb-5">
+                        {# <div class="mb-5">
                             <h3>Sur les 5 derniers paris</h3>
                             <h4 class="mt-2"><span class="text-warning">BasketNPronos</span> en a gagné {{ result_fifth }}</h4>
-                        </div>
+                        </div> #}
                         {% if app.user and not isVIP %}
                             <div class="mb-5">
                                 <h3>Franchir le pas ?</h3>
