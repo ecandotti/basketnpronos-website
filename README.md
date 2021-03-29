@@ -1,3 +1,3 @@
-# BissoNico website  
+# BasketNPronos website  
 
-Site de pronostique en symfony
+Site de pronostique en symfony DONE!
