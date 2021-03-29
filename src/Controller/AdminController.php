@@ -58,26 +58,26 @@ class AdminController extends AbstractController
         ]);
     }
 
-    /**
-     * @Route("/manage-gallery", name="admin_manage_gallery")
-     */
-    public function adminManageGallery(Request $request, PaginatorInterface $paginator, EntityManagerInterface $em): Response
-    {
-        $gallery = $em->getRepository(Gallery::class)->findBy([],[
-            'createAt' => 'DESC'
-        ]);
+    // /**
+    //  * @Route("/manage-gallery", name="admin_manage_gallery")
+    //  */
+    // public function adminManageGallery(Request $request, PaginatorInterface $paginator, EntityManagerInterface $em): Response
+    // {
+    //     $gallery = $em->getRepository(Gallery::class)->findBy([],[
+    //         'createAt' => 'DESC'
+    //     ]);
 
-        $gallery = $paginator->paginate(
-            $gallery, // Requête contenant les données à paginer
-            $request->query->getInt('page', 1), // Numéro de la page en cours, passé dans l'URL, 1 si aucune page
-            5 // Nombre de résultats par page
-        );
+    //     $gallery = $paginator->paginate(
+    //         $gallery, // Requête contenant les données à paginer
+    //         $request->query->getInt('page', 1), // Numéro de la page en cours, passé dans l'URL, 1 si aucune page
+    //         5 // Nombre de résultats par page
+    //     );
 
-        return $this->render('admin/manage-gallery.html.twig', [
-            'gallery' => $gallery,
-            'isVIP' => true
-        ]);
-    }
+    //     return $this->render('admin/manage-gallery.html.twig', [
+    //         'gallery' => $gallery,
+    //         'isVIP' => true
+    //     ]);
+    // }
 
     /**
      * @Route("/manage-comment", name="admin_manage_comment")
@@ -140,7 +140,7 @@ class AdminController extends AbstractController
         $clients = $paginator->paginate(
             $clients, // Requête contenant les données à paginer
             $request->query->getInt('page', 1), // Numéro de la page en cours, passé dans l'URL, 1 si aucune page
-            5 // Nombre de résultats par page
+            10 // Nombre de résultats par page
         );
 
         return $this->render('admin/list-client.html.twig', [
@@ -149,30 +149,30 @@ class AdminController extends AbstractController
         ]);
     }
 
-    /**
-     * @Route("/add-gallery", name="admin_add_gallery")
-     */
-    public function adminAddGallery(Request $request): Response
-    {
-        $gallery = new Gallery();
-        $form = $this->createForm(GalleryType::class, $gallery);
-        $form->handleRequest($request);
+    // /**
+    //  * @Route("/add-gallery", name="admin_add_gallery")
+    //  */
+    // public function adminAddGallery(Request $request): Response
+    // {
+    //     $gallery = new Gallery();
+    //     $form = $this->createForm(GalleryType::class, $gallery);
+    //     $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            $gallery->setCreateAt(new DateTime('now'));
+    //     if ($form->isSubmitted() && $form->isValid()) {
+    //         $gallery->setCreateAt(new DateTime('now'));
 
-            $doctrine = $this->getDoctrine()->getManager();
-            $doctrine->persist($gallery);
-            $doctrine->flush();
+    //         $doctrine = $this->getDoctrine()->getManager();
+    //         $doctrine->persist($gallery);
+    //         $doctrine->flush();
 
-            $this->addFlash('success', 'Contenue ajouté dans la galerie !');
-            return $this->redirectToRoute('admin_manage_gallery');
-        }
+    //         $this->addFlash('success', 'Contenue ajouté dans la galerie !');
+    //         return $this->redirectToRoute('admin_manage_gallery');
+    //     }
 
-        return $this->render('admin/add-gallery.html.twig', [
-            'form' => $form->createView(),
-            'gallery' => $gallery,
-            'isVIP' => true
-        ]);
-    }
+    //     return $this->render('admin/add-gallery.html.twig', [
+    //         'form' => $form->createView(),
+    //         'gallery' => $gallery,
+    //         'isVIP' => true
+    //     ]);
+    // }
 }
