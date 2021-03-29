@@ -150,7 +150,7 @@ class MainController extends AbstractController
     {
         $currentDate = new DateTime();
 
-        $pronostics = $this->getDoctrine()->getRepository(Pronostic::class)->findBy([]);
+        $pronostics = $this->getDoctrine()->getRepository(Pronostic::class)->findBy([],['createDate' => 'DESC']);
 
         foreach ($pronostics as $key => $value){
             if ($value->getCreateAt() == $currentDate->format('d-m-Y')) {
