@@ -88,6 +88,16 @@ class MainController extends AbstractController
     }
 
     /**
+     * @Route("/mentions-legals", name="mentions_legals")
+     */
+    public function mentionsLegals(): Response
+    {
+        return $this->render('mentions-legals.html.twig', [
+            'isVIP' => true
+        ]);
+    }
+
+    /**
      * @Route("/community", name="community", methods={"GET", "POST"})
      */
     public function community(Request $request, EntityManagerInterface $em, PaginatorInterface $paginator, UserRepository $userRepo): Response
