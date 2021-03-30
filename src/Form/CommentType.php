@@ -21,7 +21,7 @@ class CommentType extends AbstractType
                 'attr' => ['class' => 'form-control']
             ])
             ->add('captcha', CaptchaType::class, [
-                'label' => 'Captacha*',
+                'label' => 'Captcha*',
                 'attr' => ['class' => 'ml-2']
             ])
             ->add('poster', SubmitType::class, [

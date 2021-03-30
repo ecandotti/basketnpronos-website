@@ -24,7 +24,7 @@ class ResetPasswordRequestFormType extends AbstractType
                 ],
             ])
             ->add('captcha', CaptchaType::class, [
-                'label' => 'Captacha*',
+                'label' => 'Captcha*',
                 'attr' => ['class' => 'ml-2']
             ])
         ;
