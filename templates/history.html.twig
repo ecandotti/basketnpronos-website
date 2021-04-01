@@ -5,41 +5,40 @@
 {% block body %}
     <h2 class="text-center my-4">Historique</h2>
     {% for pronostic in pronostics %}
-        <div class="card mb-3">
-            <div class="card-body">
-                <h2 class="card-title">{{ pronostic.title }}</h2>
-                {{ pronostic.content|raw }}
+        {% if not (pronostic.result == "ND") %}
+            <div class="card mb-3">
+                <div class="card-body">
+                    <h2 class="card-title">{{ pronostic.title }}</h2>
+                    {{ pronostic.content|raw }}
+                </div>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item">Catégorie : 
+                        <span class="badge badge-info">
+                            {% if pronostic.category == "F" %}
+                                Fiable
+                            {% endif %}
+                            {% if pronostic.category == "NF" %}
+                            Fun
+                            {% endif %}
+                        </span>
+                    </li>
+                    <li class="list-group-item">
+                        Resultat : 
+                        <span class="mb-1 text-secondary">
+                            {% if pronostic.result == "G" %}
+                                <span class="badge badge-success">Gagné</span>
+                            {% endif %}
+                            {% if pronostic.result == "P" %}
+                                <span class="badge badge-danger">Perdu</span>
+                            {% endif %}
+                        </span>
+                    </li>
+                </ul>
+                <div class="card-footer text-muted">
+                    Le {{ pronostic.createAt }} par <b>{{ pronostic.user.pseudo}}</b>.
+                </div>
             </div>
-            <ul class="list-group list-group-flush">
-                <li class="list-group-item">Catégorie : 
-                    <span class="badge badge-info">
-                        {% if pronostic.category == "F" %}
-                            Fiable
-                        {% endif %}
-                        {% if pronostic.category == "NF" %}
-                           Fun
-                        {% endif %}
-                    </span>
-                </li>
-                <li class="list-group-item">
-                    Resultat : 
-                    <span class="mb-1 text-secondary">
-                        {% if pronostic.result == "ND" %}
-                            <span class="badge badge-warning">Non définie</span>
-                        {% endif %}
-                        {% if pronostic.result == "G" %}
-                            <span class="badge badge-success">Gagné</span>
-                        {% endif %}
-                        {% if pronostic.result == "P" %}
-                            <span class="badge badge-danger">Perdu</span>
-                        {% endif %}
-                    </span>
-                </li>
-            </ul>
-            <div class="card-footer text-muted">
-                Le {{ pronostic.createAt }} par <b>{{ pronostic.user.pseudo}}</b>.
-            </div>
-        </div>
+        {% endif %}
     {% else %}
     <div class="text-center my-4 border p-4 text-muted">
         Aucun pronostic disponible

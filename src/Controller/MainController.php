@@ -156,17 +156,14 @@ class MainController extends AbstractController
     /**
      * @Route("/history", name="history")
      */
-    public function history(Request $request, PaginatorInterface $paginator, UserRepository $userRepo): Response
+    public function history(Request $request, PaginatorInterface $paginator, UserRepository $userRepo, EntityManagerInterface $em): Response
     {
         $currentDate = new DateTime();
 
-        $pronostics = $this->getDoctrine()->getRepository(Pronostic::class)->findBy([],['createDate' => 'DESC']);
-
-        foreach ($pronostics as $key => $value){
-            if ($value->getCreateAt() == $currentDate->format('d-m-Y')) {
-                unset($pronostiques[$key]);
-            }
-        }
+        $dql = "SELECT p FROM App:Pronostic p WHERE p.result = :statut1 OR p.result = :statut2 ORDER BY p.createDate DESC";
+        $pronostics = $em->createQuery($dql);
+        $pronostics->setParameter('statut1', 'G');
+        $pronostics->setParameter('statut2', 'P');
 
         $pronostics = $paginator->paginate(
             $pronostics, // Requête contenant les données à paginer
