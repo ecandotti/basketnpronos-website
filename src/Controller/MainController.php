@@ -160,10 +160,11 @@ class MainController extends AbstractController
     {
         $currentDate = new DateTime();
 
-        $dql = "SELECT p FROM App:Pronostic p WHERE p.result = :statut1 OR p.result = :statut2 ORDER BY p.createDate DESC";
+        $dql = "SELECT p FROM App:Pronostic p WHERE p.result != :statut AND p.publishAt < :currDate ORDER BY p.publishAt DESC";
         $pronostics = $em->createQuery($dql);
-        $pronostics->setParameter('statut1', 'G');
-        $pronostics->setParameter('statut2', 'P');
+        $pronostics->setParameter('statut', 'ND');
+        $pronostics->setParameter('currDate', $currentDate);
+        $pronostics = $pronostics->getResult();
 
         $pronostics = $paginator->paginate(
             $pronostics, // Requête contenant les données à paginer
