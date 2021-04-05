@@ -29,7 +29,7 @@ class AdminController extends AbstractController
     {
         $latest_prono = $this->getDoctrine()->getRepository(Pronostic::class)->findBy([
             'user' => $this->getUser()
-        ], [ 'createDate' => 'DESC'], 5);
+        ], [ 'publishAt' => 'DESC'], 5);
 
         return $this->render('admin/dashboard.html.twig', [
             'latest_pronostic' => $latest_prono,
@@ -43,7 +43,7 @@ class AdminController extends AbstractController
     public function adminManagePronostic(Request $request, PaginatorInterface $paginator): Response
     {
         $pronostics = $this->getDoctrine()->getRepository(Pronostic::class)->findBy([],[
-            'createDate' => 'DESC'
+            'publishAt' => 'DESC'
         ]);
 
         $pronostics = $paginator->paginate(
