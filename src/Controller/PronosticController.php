@@ -32,10 +32,8 @@ class PronosticController extends AbstractController
                 $this->addFlash('err', 'Le contenu est vide, le pronostique n\'a pas été créé');
                 return $this->redirectToRoute('admin_dashboard');
             }
-            $date = new DateTime();
-
-            $pronostic->setCreateAt($date->format('d-m-Y'));
-            $pronostic->setCreateDate($date);
+            
+            $pronostic->setCreateAt(new DateTime('now'));
             $pronostic->setUser($this->getUser());
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($pronostic);
