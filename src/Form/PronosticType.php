@@ -10,6 +10,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use FOS\CKEditorBundle\Form\Type\CKEditorType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 
 class PronosticType extends AbstractType
 {
@@ -24,6 +25,10 @@ class PronosticType extends AbstractType
             ->add('content', CKEditorType::class, [
                 'label' => 'Contenu : ',
                 'required' => true
+            ])
+            ->add('publishAt', DateTimeType::class, [
+                'label' => 'Date de publication : ',
+                'required' => true,
             ])
             ->add('result', ChoiceType::class, [
                 'required' => true,
