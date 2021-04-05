@@ -39,9 +39,12 @@ class UserController extends AbstractController
             return $this->redirectToRoute('home');
         }
 
-        $currentProno = $em->getRepository(Pronostic::class)->findBy([
-            'createAt' => $currentDate->format('d-m-Y')
-        ],['createAt' => 'DESC'],2);
+        $dql = "SELECT p FROM App:Pronostic p WHERE p.publishAt > :currDate ORDER BY p.publishAt DESC";
+        $req = $em->createQuery($dql);
+        $req->setParameter('currDate', $currentDate);
+
+        $currentProno = $req->getResult();
+        
 
         return $this->render('user/current-prono.html.twig', [
             'currentProno' => $currentProno,
