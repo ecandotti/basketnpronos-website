@@ -20,11 +20,6 @@ class Pronostic
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $createAt;
-
-    /**
      * @ORM\Column(type="text")
      */
     private $content;
@@ -40,11 +35,6 @@ class Pronostic
     private $user;
 
     /**
-     * @ORM\Column(type="datetime")
-     */
-    private $createDate;
-
-    /**
      * @ORM\Column(type="string", length=255)
      */
     private $result;
@@ -54,22 +44,20 @@ class Pronostic
      */
     private $category;
 
+    /**
+     * @ORM\Column(type="datetime")
+     */
+    private $createAt;
+
+    /**
+     * @ORM\Column(type="datetime")
+     */
+    private $publishAt;
+
 
     public function getId(): ?int
     {
         return $this->id;
-    }
-
-    public function getCreateAt(): ?string
-    {
-        return $this->createAt;
-    }
-
-    public function setCreateAt(string $createAt): self
-    {
-        $this->createAt = $createAt;
-
-        return $this;
     }
 
     public function getContent(): ?string
@@ -108,18 +96,6 @@ class Pronostic
         return $this;
     }
 
-    public function getCreateDate(): ?\DateTimeInterface
-    {
-        return $this->createDate;
-    }
-
-    public function setCreateDate(\DateTimeInterface $createDate): self
-    {
-        $this->createDate = $createDate;
-
-        return $this;
-    }
-
     public function getResult(): ?string
     {
         return $this->result;
@@ -140,6 +116,30 @@ class Pronostic
     public function setCategory(string $category): self
     {
         $this->category = $category;
+
+        return $this;
+    }
+
+    public function getCreateAt(): ?\DateTimeInterface
+    {
+        return $this->createAt;
+    }
+
+    public function setCreateAt(\DateTimeInterface $createAt): self
+    {
+        $this->createAt = $createAt;
+
+        return $this;
+    }
+
+    public function getPublishAt(): ?\DateTimeInterface
+    {
+        return $this->publishAt;
+    }
+
+    public function setPublishAt(\DateTimeInterface $publishAt): self
+    {
+        $this->publishAt = $publishAt;
 
         return $this;
     }
