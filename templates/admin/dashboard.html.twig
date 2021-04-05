@@ -27,12 +27,12 @@
                 <div class="card-header">{{ prono.title }}</div>
                 <div class="card-body">
                     <h6 class="mt-1">
-                        Autheur :
+                        Auteur :
                         <span class="mb-1 text-secondary">{{ prono.user.pseudo}}</span>
                     </h6>
                     <h6 class="mt-1">
-                        Date :
-                        <span class="mb-1 text-secondary">{{ prono.createAt }}</span>
+                        Date publication :
+                        <span class="mb-1 text-secondary">{{ prono.publishAt|date('d-m-Y') }}</span>
                     </h6>
                     <h6 class="mt-1">
                         Catégorie :

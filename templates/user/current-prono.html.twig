@@ -27,7 +27,7 @@
                     {% endif %}
                 </ul>
                 <div class="card-footer text-muted">
-                    Le {{ prono.createAt|date('d-m-Y') }} par <b>{{ prono.user.pseudo}}</b>.
+                    Le {{ prono.publishAt|date('d-m-Y') }} par <b>{{ prono.user.pseudo}}</b>.
                 </div>
             </div>
         {% endfor %}

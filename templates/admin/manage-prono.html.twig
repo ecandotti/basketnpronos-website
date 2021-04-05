@@ -27,7 +27,7 @@
                     <th scope="col">Titre</th>
                     <th scope="col">Catégorie</th>
                     <th scope="col">Resultat</th>
-                    <th scope="col">Date</th>
+                    <th scope="col">Date de publication</th>
                     <th scope="col">Actions</th>
                 </tr>
             </thead>
@@ -54,12 +54,13 @@
                                 <span class="badge badge-danger">Perdu</span>
                             {% endif %}
                         </td>
-                        <th scope="row" class="align-middle">{{ pronostic.createAt }}</th>
+                        <th scope="row" class="align-middle">{{ pronostic.publishAt|date('d-m-Y') }}</th>
                         <td>
                             <div class="d-flex flex-column flex-md-row">
                                 <a href="{{ path('pronostic_edit', {'id': pronostic.id}) }}" class="btn btn-warning mr-2 mb-2">
                                     <i class="fas fa-edit"></i>
                                 </a>
+                                {% include "pronostic/_delete_form.html.twig" %}
                             </div>
                         </td>
                     </tr>

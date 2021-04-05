@@ -35,7 +35,7 @@
                     </li>
                 </ul>
                 <div class="card-footer text-muted">
-                    Le {{ pronostic.createAt }} par <b>{{ pronostic.user.pseudo}}</b>.
+                    Le {{ pronostic.publishAt|date('d-m-Y') }} par <b>{{ pronostic.user.pseudo}}</b>.
                 </div>
             </div>
         {% endif %}
